@@ -35,8 +35,8 @@ public class Clube {
 		return fimFuncionamento;
 	}
 
-	public int getFolga() {
-		return folga;
+	public int getFechado() {
+		return fechado;
 	}
 
 	public Set<Usuario> getUsuarios() {
