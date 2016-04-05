@@ -15,13 +15,10 @@ public class Clube {
 	
 	private Calendario calendario;
 	
-	private Map<Integer, Local> locais;
-	
 	private Map<Integer, Atividade> atividades;
 
-	public Clube(int fechado, Map<Integer, Local> locais, Map<Integer, Atividade> atividades) {
+	public Clube(int fechado, Map<Integer, Atividade> atividades) {
 		this.fechado = fechado;
-		this.locais = locais;
 		this.atividades = atividades;
 	}
 	
@@ -45,10 +42,6 @@ public class Clube {
 
 	public Calendario getCalendario() {
 		return calendario;
-	}
-
-	public Map<Integer, Local> getLocais() {
-		return locais;
 	}
 
 	public Map<Integer, Atividade> getAtividades() {

@@ -1,28 +1,17 @@
 
-public class Local {
-
-	private int id;
+public enum Local {
 	
-	private String nome;
+	SALA1(CategoriaLocal.SALA),
+	SALA2(CategoriaLocal.SALA),
+	QUADRA1(CategoriaLocal.QUADRA),
+	QUADRA2(CategoriaLocal.QUADRA);
 	
-	private CategoriaLocal categoria;
+	private final CategoriaLocal categoria;
 	
-	public Local(int id, String nome, CategoriaLocal categoria) {
-		this.id = id;
-		this.nome = nome;
+	Local(CategoriaLocal categoria) {
 		this.categoria = categoria;
 	}
 	
-	// Getters
-
-	public int getId() {
-		return id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
 	public CategoriaLocal getCategoria() {
 		return categoria;
 	}
