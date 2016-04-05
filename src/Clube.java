@@ -9,7 +9,7 @@ public class Clube {
 	
 	// Inteiro entre 0 e 6 que representa o dia da semana
 	// em que o clube nao abre
-	private int folga;
+	private int fechado;
 	
 	private Set<Usuario> usuarios;
 	
@@ -19,8 +19,8 @@ public class Clube {
 	
 	private Map<Integer, Atividade> atividades;
 
-	public Clube(int folga, Map<Integer, Local> locais, Map<Integer, Atividade> atividades) {
-		this.folga = folga;
+	public Clube(int fechado, Map<Integer, Local> locais, Map<Integer, Atividade> atividades) {
+		this.fechado = fechado;
 		this.locais = locais;
 		this.atividades = atividades;
 	}
