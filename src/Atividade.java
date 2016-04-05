@@ -2,7 +2,9 @@
 public class Atividade {
 
 	private int id;
+	
 	private String nome;
+	
 	private Modalidade modalidade;
 	
 	public Atividade(int id, String nome, Modalidade modalidade) {
@@ -10,6 +12,8 @@ public class Atividade {
 		this.nome = nome;
 		this.modalidade = modalidade;
 	}
+	
+	// Getters
 
 	public int getId() {
 		return id;
@@ -22,7 +26,5 @@ public class Atividade {
 	public Modalidade getModalidade() {
 		return modalidade;
 	}
-	
-	
 	
 }

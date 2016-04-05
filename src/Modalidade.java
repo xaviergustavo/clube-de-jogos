@@ -1,21 +1,24 @@
+// Existem tres modalidades diferentes de jogos: digitais, analogicos e fisicos.
+// Todas as atividades serao categorizadas por um desses tipos.
+// Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e volei.
+public enum Modalidade {
+	
+	DIGITAL(CategoriaLocal.SALA),
+	ANALOGICO(CategoriaLocal.SALA),
+	FISICO(CategoriaLocal.QUADRA);
+	
+	// Atividades de jogos digitais e analogicos acontecer nas salas de
+	// atividades. Atividades de jogos fisicos so podem acontecer nas quadras.
+	// Toda modalidade tera uma instancia do objeto CategoriaLocal para que
+	// essa condicao seja validada futuramente
+	private final CategoriaLocal categoria;
 
-public class Modalidade {
-	
-	private int id;
-	private String nome;
-	
-	public Modalidade(int id, String nome) {
-		this.id = id;
-		this.nome = nome;
+	Modalidade(CategoriaLocal categoria) {
+		this.categoria = categoria;
 	}
 
-	public int getId() {
-		return id;
+	public CategoriaLocal getCategoria() {
+		return categoria;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-	
 	
 }

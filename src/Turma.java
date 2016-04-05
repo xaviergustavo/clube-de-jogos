@@ -18,9 +18,10 @@ public class Turma {
 	
 	private Local local;
 	
-	// Collection que contem a lista de usuarios de uma turma.
-	// Foi escolhido o HashSet para garantir que nao exista
-	// usuarios duplicados
+	// Collection que contem os usuarios de uma turma.
+	// Foi escolhido o Set para garantir que nao exista
+	// usuarios duplicados. Pode ser trocado futuramente
+	// por um Map (talvez) para facilitar sua manipulacao
 	private Set<Usuario> usuarios;
 	
 	public Turma(int id, int duracao, LocalDate inicio, LocalDate fim, Atividade atividade, int quantidadeUsuarios,
@@ -34,6 +35,8 @@ public class Turma {
 		this.local = local;
 		this.usuarios = usuarios;
 	}
+	
+	// Getters
 
 	public int getId() {
 		return id;

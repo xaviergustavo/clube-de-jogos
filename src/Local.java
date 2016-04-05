@@ -2,7 +2,9 @@
 public class Local {
 
 	private int id;
+	
 	private String nome;
+	
 	private CategoriaLocal categoria;
 	
 	public Local(int id, String nome, CategoriaLocal categoria) {
@@ -10,6 +12,8 @@ public class Local {
 		this.nome = nome;
 		this.categoria = categoria;
 	}
+	
+	// Getters
 
 	public int getId() {
 		return id;
