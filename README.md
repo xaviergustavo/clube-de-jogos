@@ -66,4 +66,17 @@ modelagem do sistema.
 1. Existem três modalidades diferentes de jogos: digitais, analógicos e físicos. Todas as atividades serão categorizadas
 por um desses tipos. Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e vôlei. Podem existir
 diversas atividades.
-
+2. O clube possui um horário de funcionamento  xo, das 8h às 22h.
+3. O clube não funciona durante um dia da semana.
+4. O clube possui duas categorias de locais para atividades: quadras e salas de atividades. Lembre-se que há um número finito de locais.
+5. Atividades de jogos digitais e analógicos sópodem acontecer nas salas de atividades.
+6. Atividades de jogos físicos só podem acontecer nas quadras.
+7. As atividades são organizadas em turmas. Uma turma possui uma duração em semanas, início, fim, atividade, quantidade de usuários, local e usuários participantes.
+8. Uma atividade não pode ter menos de duas horas de duração.
+9. As turmas têm duração especificada em número de semanas e podem ter duração superior a um mês.
+10. Uma turma não pode ocupar dois locais no mesmo dia e horário.
+11. Uma turma não pode estar em dois horários diferentes no mesmo dia.
+12. Duas turmas não podem ocupar o mesmo local no mesmo horário.
+13. Um usuário não pode estar em dois locais diferentes no mesmo dia e horário.
+14. Um mesmo usuário não pode participar de mais de duas turmas em um mesmo dia.
+15. O calendário deve ser capaz de exibir os horários com atividades e os vagos.
