@@ -1,21 +1,25 @@
 import java.util.Map;
-import java.util.Set;
 
 public class Clube {
 	
+	// Horario de inicio do funcionamento
 	private final int inicioFuncionamento = 8;
 	
+	// Horario de fim do funcionamento
 	private final int fimFuncionamento = 22;
 	
 	// Inteiro entre 0 e 6 que representa o dia da semana
 	// em que o clube nao abre
-	private int fechado;
+	private final int fechado;
 	
-	private Set<Usuario> usuarios;
+	// Usuarios cadastrados no clube
+	private Map<Integer, Usuario> usuarios;
 	
-	private Calendario calendario;
-	
+	// Map de todos as atividades existentes no clube
 	private Map<Integer, Atividade> atividades;
+	
+	// Locais disponiveis no clube
+	private Map<Integer, Local> locais;
 
 	public Clube(int fechado, Map<Integer, Atividade> atividades) {
 		this.fechado = fechado;
@@ -36,16 +40,16 @@ public class Clube {
 		return fechado;
 	}
 
-	public Set<Usuario> getUsuarios() {
+	public Map<Integer, Usuario> getUsuarios() {
 		return usuarios;
-	}
-
-	public Calendario getCalendario() {
-		return calendario;
 	}
 
 	public Map<Integer, Atividade> getAtividades() {
 		return atividades;
+	}
+
+	public Map<Integer, Local> getLocais() {
+		return locais;
 	}
 	
 }

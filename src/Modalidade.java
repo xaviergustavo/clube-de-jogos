@@ -3,9 +3,11 @@
 // Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e volei.
 public enum Modalidade {
 	
-	DIGITAL(CategoriaLocal.SALA),
-	ANALOGICO(CategoriaLocal.SALA),
-	FISICO(CategoriaLocal.QUADRA);
+	DIGITAL(1, CategoriaLocal.SALA),
+	ANALOGICO(2, CategoriaLocal.SALA),
+	FISICO(3, CategoriaLocal.QUADRA);
+	
+	private final int id;
 	
 	// Atividades de jogos digitais e analogicos acontecer nas salas de
 	// atividades. Atividades de jogos fisicos so podem acontecer nas quadras.
@@ -13,8 +15,13 @@ public enum Modalidade {
 	// essa condicao seja validada futuramente
 	private final CategoriaLocal categoria;
 
-	Modalidade(CategoriaLocal categoria) {
+	Modalidade(int id, CategoriaLocal categoria) {
+		this.id = id;
 		this.categoria = categoria;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public CategoriaLocal getCategoria() {

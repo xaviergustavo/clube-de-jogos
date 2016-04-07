@@ -1,39 +1,38 @@
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Map;
 
 public class Turma {
 	
+	// Codigo identificador da turma
 	private int id;
 	
 	// Duracao em semanas
 	private int duracao;
 	
+	// Data de inicio da turma
 	private LocalDate inicio;
 	
+	// Data de finalizacao da turma
 	private LocalDate fim;
 	
+	// Atividade pertencente a turma
 	private Atividade atividade;
 	
-	private int quantidadeUsuarios;
+	// Colecao de usuarios de uma turma
+	private Map<Integer, Usuario> usuarios;
 	
-	private Local local;
-	
-	// Collection que contem os usuarios de uma turma.
-	// Foi escolhido o Set para garantir que nao exista
-	// usuarios duplicados. Pode ser trocado futuramente
-	// por um Map (talvez) para facilitar sua manipulacao
-	private Set<Usuario> usuarios;
-	
-	public Turma(int id, int duracao, LocalDate inicio, LocalDate fim, Atividade atividade, int quantidadeUsuarios,
-			Local local, Set<Usuario> usuarios) {
+	public Turma(int id, int duracao, LocalDate inicio, LocalDate fim, Atividade atividade,
+			Map<Integer, Usuario> usuarios) {
 		this.id = id;
 		this.duracao = duracao;
 		this.inicio = inicio;
 		this.fim = fim;
 		this.atividade = atividade;
-		this.quantidadeUsuarios = quantidadeUsuarios;
-		this.local = local;
 		this.usuarios = usuarios;
+	}
+	
+	public int quantidadeUsuarios() {
+		return usuarios.size();
 	}
 	
 	// Getters
@@ -58,15 +57,7 @@ public class Turma {
 		return atividade;
 	}
 
-	public int getQuantidadeUsuarios() {
-		return quantidadeUsuarios;
-	}
-
-	public Local getLocal() {
-		return local;
-	}
-
-	public Set<Usuario> getUsuarios() {
+	public Map<Integer, Usuario> getUsuarios() {
 		return usuarios;
 	}
 	

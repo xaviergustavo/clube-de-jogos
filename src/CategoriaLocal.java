@@ -2,7 +2,17 @@
 // Lembre-se que ha um numero finito de locais.
 public enum CategoriaLocal {
 	
-	QUADRA(),
-	SALA();
+	QUADRA(1),
+	SALA(2);
+	
+	private final int id;
+	
+	CategoriaLocal(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
 
 }

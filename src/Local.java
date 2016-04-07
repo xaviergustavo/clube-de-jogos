@@ -1,19 +1,34 @@
 
-public enum Local {
+public class Local {
 	
-	SALA1(CategoriaLocal.SALA),
-	SALA2(CategoriaLocal.SALA),
-	QUADRA1(CategoriaLocal.QUADRA),
-	QUADRA2(CategoriaLocal.QUADRA);
+	private int id;
 	
-	private final CategoriaLocal categoria;
+	private String nome;
 	
-	Local(CategoriaLocal categoria) {
+	// Categoria do local
+	private CategoriaLocal categoria;
+	
+	// Calendario especifico de um local
+	private Calendario calendario;
+	
+	public Local(CategoriaLocal categoria) {
 		this.categoria = categoria;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
 	}
 	
 	public CategoriaLocal getCategoria() {
 		return categoria;
+	}
+
+	public Calendario getCalendario() {
+		return calendario;
 	}
 	
 }
