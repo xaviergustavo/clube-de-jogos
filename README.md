@@ -47,7 +47,6 @@ Clube de Jogos e implemente esse sistema de acordo com a descrição acima. Voc�
 as entidades pertencentes ao clube, de acordo com sua modelagem, se comuniquem entre si. **O sistema deve ser capaz de
 agendar as salas e suas turmas em dias e horários determinados, sem que haja conflitos (de horários, participantes e local)**.
 
-
 Tenha sempre em mente que o seu código será utilizado nos próximos EPs, ou seja, ele deve tentar modelar o sistema da
 melhor forma possível (com as informações que vocês possuem atualmente). É claro que o código poderá (e deverá) ser
 refatorado e alterado (incluindo o nome das classes) no futuro, a medida que os novos requisitos forem sendo especificados.
@@ -66,7 +65,7 @@ modelagem do sistema.
 1. Existem três modalidades diferentes de jogos: digitais, analógicos e físicos. Todas as atividades serão categorizadas
 por um desses tipos. Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e vôlei. Podem existir
 diversas atividades.
-2. O clube possui um horário de funcionamento  xo, das 8h às 22h.
+2. O clube possui um horário de funcionamento  fixo, das 8h às 22h.
 3. O clube não funciona durante um dia da semana.
 4. O clube possui duas categorias de locais para atividades: quadras e salas de atividades. Lembre-se que há um número finito de locais.
 5. Atividades de jogos digitais e analógicos sópodem acontecer nas salas de atividades.
