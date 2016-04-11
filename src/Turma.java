@@ -18,16 +18,20 @@ public class Turma {
 	// Atividade pertencente a turma
 	private Atividade atividade;
 	
+	// Local em que a turma costuma ocupar em suas atividades
+	private Local local;
+	
 	// Colecao de usuarios de uma turma
 	private Map<Integer, Usuario> usuarios;
 	
 	public Turma(int id, int duracao, LocalDate inicio, LocalDate fim, Atividade atividade,
-			Map<Integer, Usuario> usuarios) {
+			Local local, Map<Integer, Usuario> usuarios) {
 		this.id = id;
 		this.duracao = duracao;
 		this.inicio = inicio;
 		this.fim = fim;
 		this.atividade = atividade;
+		this.local = local;
 		this.usuarios = usuarios;
 	}
 	
@@ -56,6 +60,11 @@ public class Turma {
 	public Atividade getAtividade() {
 		return atividade;
 	}
+	
+	public Local getLocal() {
+		return local;
+	}
+
 
 	public Map<Integer, Usuario> getUsuarios() {
 		return usuarios;

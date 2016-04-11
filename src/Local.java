@@ -8,12 +8,15 @@ public class Local {
 	// Categoria do local
 	private CategoriaLocal categoria;
 	
-	// Calendario especifico de um local
+	// Calendario especifico de um local, contendo
+	// os agendamentos das turmas.
 	private Calendario calendario;
 	
 	public Local(CategoriaLocal categoria) {
 		this.categoria = categoria;
 	}
+	
+	// Getters
 	
 	public int getId() {
 		return id;

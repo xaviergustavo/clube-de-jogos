@@ -21,9 +21,10 @@ public class Clube {
 	// Locais disponiveis no clube
 	private Map<Integer, Local> locais;
 
-	public Clube(int fechado, Map<Integer, Atividade> atividades) {
+	public Clube(int fechado, Map<Integer, Atividade> atividades, Map<Integer, Local> locais) {
 		this.fechado = fechado;
 		this.atividades = atividades;
+		this.locais = locais;
 	}
 	
 	// Getters
