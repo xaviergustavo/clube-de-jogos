@@ -1,18 +1,22 @@
 // O clube possui duas categorias de locais para atividades: quadras e salas de atividades.
 // Lembre-se que ha um numero finito de locais.
-public enum CategoriaLocal {
+public class CategoriaLocal {
 	
-	QUADRA(1),
-	SALA(2);
+	private int id;
 	
-	private final int id;
+	private String nome;
 	
-	CategoriaLocal(int id) {
+	CategoriaLocal(int id, String nome) {
 		this.id = id;
+		this.nome = nome;
 	}
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 
 }

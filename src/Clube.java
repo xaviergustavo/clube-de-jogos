@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class Clube {
@@ -23,6 +24,7 @@ public class Clube {
 
 	public Clube(int fechado, Map<Integer, Atividade> atividades, Map<Integer, Local> locais) {
 		this.fechado = fechado;
+		this.usuarios = new HashMap<>();
 		this.atividades = atividades;
 		this.locais = locais;
 	}

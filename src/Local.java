@@ -14,6 +14,7 @@ public class Local {
 	
 	public Local(CategoriaLocal categoria) {
 		this.categoria = categoria;
+		this.calendario = new Calendario();
 	}
 	
 	// Getters

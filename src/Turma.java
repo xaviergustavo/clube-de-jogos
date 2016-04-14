@@ -24,12 +24,11 @@ public class Turma {
 	// Colecao de usuarios de uma turma
 	private Map<Integer, Usuario> usuarios;
 	
-	public Turma(int id, int duracao, LocalDate inicio, LocalDate fim, Atividade atividade,
+	public Turma(int id, int duracao, LocalDate inicio, Atividade atividade,
 			Local local, Map<Integer, Usuario> usuarios) {
 		this.id = id;
 		this.duracao = duracao;
 		this.inicio = inicio;
-		this.fim = fim;
 		this.atividade = atividade;
 		this.local = local;
 		this.usuarios = usuarios;

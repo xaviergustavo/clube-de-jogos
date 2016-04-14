@@ -7,7 +7,7 @@ public class Calendario {
 	private Map<LocalDate, Cronograma> calendario;
 
 	public Calendario() {
-		this.calendario = new TreeMap<LocalDate, Cronograma>();
+		this.calendario = new TreeMap<>();
 	}
 
 	public Map<LocalDate, Cronograma> getCalendario() {
