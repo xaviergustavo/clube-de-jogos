@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 
 public class Local {
 	
@@ -10,11 +11,35 @@ public class Local {
 	
 	// Calendario especifico de um local, contendo
 	// os agendamentos das turmas.
-	private Calendario calendario;
+	public Calendario calendario;
 	
-	public Local(CategoriaLocal categoria) {
+	public Local(int id, String nome, CategoriaLocal categoria) {
+		this.id = id;
+		this.nome = nome;
 		this.categoria = categoria;
 		this.calendario = new Calendario();
+	}
+	
+	public int agendamentosNodDia(Usuario usuario, LocalDate data) {
+		return calendario.agendamentosNoDia(usuario, data);
+	}
+	
+	public boolean usuarioAgendado(Usuario usuario, LocalDate data, int horario) {
+		return calendario.usuarioAgendado(usuario, data, horario);
+	}
+	
+	public boolean agendarTurma(Turma turma, LocalDate data, int horarioInicio, int duracao) {
+		if (!turma.getLocal().equals(this)) {
+			return false;
+		}
+		if (!turma.getAtividade().getModalidade().getCategoria().equals(this.categoria)) {
+			return false;
+		}
+		return calendario.agendarTurma(turma, data, horarioInicio, duracao);
+	}
+	
+	public void imprimeCalendario(LocalDate data) {
+		calendario.imprimeCalendario(data);
 	}
 	
 	// Getters
@@ -34,5 +59,15 @@ public class Local {
 	public Calendario getCalendario() {
 		return calendario;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Local other = (Local) obj;
+		return this.id == other.id;
+	}
+	
 	
 }

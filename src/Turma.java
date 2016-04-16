@@ -12,9 +12,6 @@ public class Turma {
 	// Data de inicio da turma
 	private LocalDate inicio;
 	
-	// Data de finalizacao da turma
-	private LocalDate fim;
-	
 	// Atividade pertencente a turma
 	private Atividade atividade;
 	
@@ -38,6 +35,14 @@ public class Turma {
 		return usuarios.size();
 	}
 	
+	public LocalDate getFim() {
+		return inicio.plusWeeks(duracao);
+	}
+	
+	public boolean usuarioExiste(Usuario usuario) {
+		return usuarios.containsValue(usuario);
+	}
+	
 	// Getters
 
 	public int getId() {
@@ -52,10 +57,6 @@ public class Turma {
 		return inicio;
 	}
 
-	public LocalDate getFim() {
-		return fim;
-	}
-
 	public Atividade getAtividade() {
 		return atividade;
 	}
@@ -64,9 +65,19 @@ public class Turma {
 		return local;
 	}
 
-
 	public Map<Integer, Usuario> getUsuarios() {
 		return usuarios;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Turma other = (Turma) obj;
+		return id == other.id;
+	}
+	
+	
 	
 }

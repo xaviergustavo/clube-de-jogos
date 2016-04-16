@@ -5,19 +5,26 @@ public class Modalidade {
 	
 	private int id;
 	
+	private String nome;
+	
 	// Atividades de jogos digitais e analogicos acontecer nas salas de
 	// atividades. Atividades de jogos fisicos so podem acontecer nas quadras.
 	// Toda modalidade tera uma instancia do objeto CategoriaLocal para que
 	// essa condicao seja validada futuramente
 	private CategoriaLocal categoria;
 
-	Modalidade(int id, CategoriaLocal categoria) {
+	Modalidade(int id, String nome, CategoriaLocal categoria) {
 		this.id = id;
+		this.nome = nome;
 		this.categoria = categoria;
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public String getNome() {
+		return nome;
 	}
 
 	public CategoriaLocal getCategoria() {
