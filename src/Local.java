@@ -20,7 +20,7 @@ public class Local {
 		this.calendario = new Calendario();
 	}
 	
-	public int agendamentosNodDia(Usuario usuario, LocalDate data) {
+	public int agendamentosNoDia(Usuario usuario, LocalDate data) {
 		return calendario.agendamentosNoDia(usuario, data);
 	}
 	

@@ -1,5 +1,3 @@
-
-
 public class Cronograma {
 	
 	// Horario inicial do cronograma (inclusivo)
@@ -27,6 +25,7 @@ public class Cronograma {
 		return horario - horarioInicial;
 	}
 	
+	// Dado uma posicao do array, retorna o horario correspondente
 	private int horarioPorPosicao(int posicao) {
 		return posicao + horarioInicial;
 	}
@@ -71,6 +70,9 @@ public class Cronograma {
 	}
 	
 	public boolean agendar(Turma turma, int inicio, int duracao) {
+		if (inicio < horarioInicial || inicio >= horarioFinal) {
+			return false;
+		}
 		if (!podeAgendarNoPeriodo(inicio, duracao) || turmaExiste(turma)) {
 			return false;
 		}

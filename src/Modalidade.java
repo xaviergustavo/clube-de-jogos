@@ -7,7 +7,7 @@ public class Modalidade {
 	
 	private String nome;
 	
-	// Atividades de jogos digitais e analogicos acontecer nas salas de
+	// Atividades de jogos digitais e analogicos so podem acontecer nas salas de
 	// atividades. Atividades de jogos fisicos so podem acontecer nas quadras.
 	// Toda modalidade tera uma instancia do objeto CategoriaLocal para que
 	// essa condicao seja validada futuramente

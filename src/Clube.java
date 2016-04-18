@@ -33,11 +33,15 @@ public class Clube {
 	
 	// Modalidades disponiveis no clube
 	private Map<Integer, Modalidade> modalidades;
+	
+	// Turmas existentes no clube
+	private Map<Integer, Turma> turmas;
 
 	public Clube(DayOfWeek fechado) {
 		this.fechado = fechado;
 		this.usuarios = new HashMap<>();
 		this.atividades = new HashMap<>();
+		this.turmas = new HashMap<>();
 		inicializarCategorias();
 		inicializarLocais();
 		inicializarModalidades();
@@ -46,7 +50,7 @@ public class Clube {
 	private void inicializarCategorias() {
 		categorias = new HashMap<>();
 		categorias.put(1, new CategoriaLocal(1, "Quadra"));
-		categorias.put(2, new CategoriaLocal(1, "Sala"));
+		categorias.put(2, new CategoriaLocal(2, "Sala"));
 	}
 	
 	private void inicializarLocais() {
@@ -78,22 +82,22 @@ public class Clube {
 		int agendamentos = 0;
 		for (Entry<Integer, Local> entry : locais.entrySet()) {
 			Local local = entry.getValue();
-			agendamentos += local.agendamentosNodDia(usuario, data);
+			agendamentos += local.agendamentosNoDia(usuario, data);
 		}
 		return agendamentos;
 	}
 	
-	public boolean agendarTurma(Turma turma, LocalDate data, int inicio, int duracao) {
-		if (data.isBefore(turma.getInicio()) && data.isAfter(turma.getFim())) {
+	public boolean agendarTurma(Turma turma, LocalDate data, int horarioInicial, int duracao) {
+		if (data.isBefore(turma.getInicio()) || data.isAfter(turma.getFim())) {
 			return false;
 		}
 		for (Entry<Integer, Usuario> entry : turma.getUsuarios().entrySet()) {
 			Usuario usuario = entry.getValue();
 			int agendamentos = agendamentosNoDia(usuario, data);
-			if (agendamentos >= 2) {
+			if (agendamentos >= 2) {		
 				return false;
 			}
-			for (int horario = inicio; horario < inicio + duracao; horario++) {
+			for (int horario = horarioInicial; horario < horarioInicial + duracao; horario++) {
 				if (usuarioAgendado(usuario, data, horario)) {
 					return false;
 				}
@@ -102,7 +106,7 @@ public class Clube {
 		if (data.getDayOfWeek().equals(fechado) || duracao < duracaoMinima) {
 			return false;
 		}
-		return turma.getLocal().agendarTurma(turma, data, inicio, duracao);
+		return turma.getLocal().agendarTurma(turma, data, horarioInicial, duracao);
 	}
 	
 	public void imprimeCalendario(Local local, LocalDate data) {
@@ -123,18 +127,10 @@ public class Clube {
 		return atividades.get(id);
 	}
 	
-	public void adicionarAtividade(Atividade atividade) {
-		atividades.put(atividade.getId(), atividade);
-	}
-	
 	public Usuario getUsuario(int id) {
 		return usuarios.get(id);
 	}
 	
-	public void adicionarUsuario(Usuario usuario) {
-		usuarios.put(usuario.getId(), usuario);
-	}
-
 	public int getInicioFuncionamento() {
 		return inicioFuncionamento;
 	}
@@ -159,4 +155,23 @@ public class Clube {
 		return locais;
 	}
 	
+	public Map<Integer, Turma> getTurmas() {
+		return turmas;
+	}
+	
+	public Turma getTurma(int id) {
+		return turmas.get(id);
+	}
+	
+	public void adicionarAtividade(Atividade atividade) {
+		atividades.put(atividade.getId(), atividade);
+	}
+	
+	public void adicionarUsuario(Usuario usuario) {
+		usuarios.put(usuario.getId(), usuario);
+	}
+	
+	public void adicionarTurma(Turma turma) {
+		turmas.put(turma.getId(), turma);
+	}
 }
