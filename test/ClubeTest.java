@@ -8,6 +8,11 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import atividade.Atividade;
+import clube.Clube;
+import turma.Turma;
+import usuario.Usuario;
+
 public class ClubeTest {
 	
 	private Clube clube;

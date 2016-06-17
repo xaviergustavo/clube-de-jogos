@@ -1,4 +1,9 @@
+package local;
 import java.time.LocalDate;
+
+import calendario.Calendario;
+import turma.Turma;
+import usuario.Usuario;
 
 public class Local {
 	

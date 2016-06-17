@@ -1,3 +1,7 @@
+package modalidade;
+
+import local.CategoriaLocal;
+
 // Existem tres modalidades diferentes de jogos: digitais, analogicos e fisicos.
 // Todas as atividades serao categorizadas por um desses tipos.
 // Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e volei.
@@ -13,7 +17,7 @@ public class Modalidade {
 	// essa condicao seja validada futuramente
 	private CategoriaLocal categoria;
 
-	Modalidade(int id, String nome, CategoriaLocal categoria) {
+	public Modalidade(int id, String nome, CategoriaLocal categoria) {
 		this.id = id;
 		this.nome = nome;
 		this.categoria = categoria;

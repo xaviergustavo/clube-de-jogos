@@ -1,3 +1,7 @@
+package calendario;
+import turma.Turma;
+import usuario.Usuario;
+
 public class Cronograma {
 	
 	// Horario inicial do cronograma (inclusivo)

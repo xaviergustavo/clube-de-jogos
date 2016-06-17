@@ -1,3 +1,4 @@
+package local;
 // O clube possui duas categorias de locais para atividades: quadras e salas de atividades.
 // Lembre-se que ha um numero finito de locais.
 public class CategoriaLocal {
@@ -6,7 +7,7 @@ public class CategoriaLocal {
 	
 	private String nome;
 	
-	CategoriaLocal(int id, String nome) {
+	public CategoriaLocal(int id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}

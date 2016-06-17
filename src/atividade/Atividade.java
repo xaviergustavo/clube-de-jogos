@@ -1,3 +1,6 @@
+package atividade;
+
+import modalidade.Modalidade;
 
 public class Atividade {
 

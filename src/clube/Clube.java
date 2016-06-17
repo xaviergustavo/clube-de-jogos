@@ -1,8 +1,17 @@
+package clube;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import atividade.Atividade;
+import local.CategoriaLocal;
+import local.Local;
+import modalidade.Modalidade;
+import turma.Turma;
+import usuario.Usuario;
 
 public class Clube {
 	

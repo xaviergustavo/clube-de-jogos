@@ -1,5 +1,10 @@
+package turma;
 import java.time.LocalDate;
 import java.util.Map;
+
+import atividade.Atividade;
+import local.Local;
+import usuario.Usuario;
 
 public class Turma {
 	

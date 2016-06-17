@@ -1,4 +1,9 @@
+package calendario;
 import java.util.*;
+
+import turma.Turma;
+import usuario.Usuario;
+
 import java.time.LocalDate;
 
 public class Calendario {
@@ -31,7 +36,7 @@ public class Calendario {
 		return calendario.get(data).agendar(turma, inicio, duracao);
 	}
 	
-	void imprimeCalendario(LocalDate data) {
+	public void imprimeCalendario(LocalDate data) {
 		Cronograma cronograma = calendario.get(data);
 		System.out.print(data + " -> ");
 		if (cronograma == null) {
