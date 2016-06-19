@@ -16,6 +16,10 @@ public class Atividade {
 		this.modalidade = modalidade;
 	}
 	
+	public String toString() {
+		return this.nome;
+	}
+	
 	// Getters
 
 	public int getId() {
