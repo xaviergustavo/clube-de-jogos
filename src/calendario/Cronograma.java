@@ -1,4 +1,7 @@
 package calendario;
+import java.util.ArrayList;
+import java.util.List;
+
 import turma.Turma;
 import usuario.Usuario;
 
@@ -98,9 +101,29 @@ public class Cronograma {
 		System.out.println(" ]");
 	}
 	
+	public List<Integer> horariosTurma(Turma t) {
+		List<Integer> horarios = new ArrayList<>();
+		for (int i = 0; i < agendamentos.length; i++) {
+			try {
+				if (agendamentos[i].equals(t)) {
+					horarios.add(horarioPorPosicao(i));
+				}
+			} catch (NullPointerException e) {
+				
+			}	
+		}
+		return horarios;
+	}
+	
 	// Retorna a turma (ou nulo, caso o horario esteja vago) agendada no horario informado
 	public Turma getTurma(int horario) {
-		return agendamentos[posicaoPorHorario(horario)];
+		Turma turma = null;
+		try{
+			turma = agendamentos[posicaoPorHorario(horario)];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+		return turma;
 	}
 	
 	private void setTurma(Turma turma, int horario) {
