@@ -1,5 +1,7 @@
 package turma;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import atividade.Atividade;
@@ -27,13 +29,17 @@ public class Turma {
 	private Map<Integer, Usuario> usuarios;
 	
 	public Turma(int id, int duracao, LocalDate inicio, Atividade atividade,
-			Local local, Map<Integer, Usuario> usuarios) {
+			Local local, List<Usuario> usuarios) {
 		this.id = id;
 		this.duracao = duracao;
 		this.inicio = inicio;
 		this.atividade = atividade;
 		this.local = local;
-		this.usuarios = usuarios;
+		this.usuarios = new HashMap<>();
+		for (Usuario u : usuarios) {
+			this.usuarios.put(u.getId(), u);
+			u.setTurma(this);
+		}
 	}
 	
 	public int quantidadeUsuarios() {
@@ -46,6 +52,10 @@ public class Turma {
 	
 	public boolean usuarioExiste(Usuario usuario) {
 		return usuarios.containsValue(usuario);
+	}
+	
+	public String toString() {
+		return String.format("Turma %d - Atividade: %s | Local: %s", id, atividade, local);
 	}
 	
 	// Getters
