@@ -1,7 +1,12 @@
 package local;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import calendario.Calendario;
+import calendario.Cronograma;
 import turma.Turma;
 import usuario.Usuario;
 
@@ -45,6 +50,30 @@ public class Local {
 	
 	public void imprimeCalendario(LocalDate data) {
 		calendario.imprimeCalendario(data);
+	}
+	
+	public Map<LocalDate, List<Integer>> horariosTurma(Turma t) {
+		Map<LocalDate, List<Integer>> horariosTurma = new HashMap<>();
+		for (Entry<LocalDate, Cronograma> entry : calendario.getCalendario().entrySet()) {
+			List<Integer> horariosData = entry.getValue().horariosTurma(t);
+			if (horariosData.size() > 0) {
+				horariosTurma.put(entry.getKey(), horariosData);
+			}
+		}
+		return horariosTurma;
+	}
+	
+	public void imprimirHorariosTurma(Turma t) {
+		System.out.println("Horarios:");
+		
+		Map<LocalDate, List<Integer>> horarios = horariosTurma(t);
+		for (Entry<LocalDate, List<Integer>> entry : horarios.entrySet()) {
+			System.out.format("%s -> %s\n", entry.getKey(), entry.getValue());
+		}
+	}
+	
+	public String toString() { 
+		return this.nome;
 	}
 	
 	// Getters
