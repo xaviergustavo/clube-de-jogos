@@ -1,8 +1,15 @@
 package gerenciadores;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import clube.Clube;
+import usuario.Usuario;
 
 public class GerenciadorUsuario <U>{
 
@@ -18,10 +25,34 @@ public class GerenciadorUsuario <U>{
 		 * um ou mais usuários năo tenham sido cadastrados
 		 */
 		public boolean cadastraUsuariosAntigos(Path arquivo) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return false;
+			String conteudoArquivo;
+			boolean ok = true;
+			try {
+				conteudoArquivo = new String(Files.readAllBytes(arquivo));
+				String[] usuariosArquivo = conteudoArquivo.split("\\|");
+				
+				for (String usuarioArquivo : usuariosArquivo) {
+					String[] atributos = usuarioArquivo.split(",");
+					
+					String nome = atributos[0];
+					int idade = Integer.parseInt(atributos[1]);
+					String endereco = atributos[2];
+					long telefone = Long.parseLong(atributos[3]);
+					
+					Clube clube = Clube.getInstance();
+					
+					Usuario novo = new Usuario(nome, idade, endereco, telefone);
+					if (clube.usuarioExiste(novo)) {
+						System.out.format("O usuario %s ja esta cadastrado no sistema\n", novo.getNome());
+						ok = false;
+					} else {
+						clube.adicionarUsuario(novo);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return ok;
 	}
 		
 		
@@ -32,9 +63,18 @@ public class GerenciadorUsuario <U>{
 		 * Vocę deve incrementar o arquivo a cada vez que este método for executado.
 		 */
 		public void exportaUsuariosSistemaAntigo() {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
+			Clube clube = Clube.getInstance();	
+			
+			for (Usuario usuario : clube.getUsuarios()) {
+				
+				try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("usuarios.dat", true)))) {
+				  
+					out.format("%s|", usuario.formatoSistemaAntigo());
+				  
+				} catch (IOException e){
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		/**
@@ -59,10 +99,23 @@ public class GerenciadorUsuario <U>{
 		 * um ou mais usuários năo tiverem sido cadastrados
 		 */
 		public boolean cadastrarNovosUsuarios(List<U> usuarios) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return false;
+			Clube clube = Clube.getInstance();	
+			
+			boolean ok = true;
+			
+			for (U u : usuarios) {
+				
+				Usuario usuario = (Usuario)u;
+				
+				if (clube.usuarioExiste(usuario)) {
+					System.out.format("O usuario %s ja esta cadastrado no sistema\n", usuario.getNome());
+					ok = false;
+				} else {
+					clube.adicionarUsuario(usuario);
+				}
+				
+			}
+			return ok;
 		}
 		
 		/***
@@ -72,9 +125,21 @@ public class GerenciadorUsuario <U>{
 		 * 
 		 */
 		public void visualizarUsuario(String nomeUsuario) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
+			Clube clube = Clube.getInstance();
+			Usuario u = clube.getUsuario(nomeUsuario);
+			
+			if (u == null) {
+				System.out.format("O usuario %s nao foi encontrado", nomeUsuario);
+				return;
+			}
+			
+			System.out.format("Nome: %s\n", u.getNome());
+			System.out.format("Idade: %d\n", u.getIdade());
+			System.out.format("Endereco: %s\n", u.getEndereco());
+			System.out.format("Telefone: %d\n", u.getTelefone());
+			
+			u.imprimirTurmas();
+			System.out.println();
 		}
 		
 		/**
@@ -83,9 +148,15 @@ public class GerenciadorUsuario <U>{
 		 * @param nMatricula - número de matrícula do usuário a ser visualizado
 		 */
 		public void visualizarUsuario(int nMatricula) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
+			Clube clube = Clube.getInstance();
+			Usuario u = clube.getUsuario(nMatricula);
+			
+			if (u == null) {
+				System.out.format("O usuario com a matricula %d nao foi encontrado", nMatricula);
+				return;
+			}
+			
+			visualizarUsuario(u.getNome());
 		}
 		
 		/**
@@ -94,10 +165,14 @@ public class GerenciadorUsuario <U>{
 		 * @return int - contendo o número de usuários cadastrados
 		 */
 		public int visualizarTodosUsuarios() {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return 0;
+			Clube clube = Clube.getInstance();
+			
+			List<Usuario> usuarios = clube.getUsuarios();
+			for (Usuario u : usuarios) {
+				visualizarUsuario(u.getNome());
+			}
+			
+			return clube.quantidadeUsuarios();
 		}
 		
 		/**
@@ -108,7 +183,7 @@ public class GerenciadorUsuario <U>{
 		public void editarUsuario(String nomeUsuario) {
 			/**
 			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
+			 */
 		}
 		
 		/**
@@ -130,10 +205,8 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean  removerUsuario(String nomeUsuario) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return false;
+			Clube clube = Clube.getInstance();
+			return clube.removerUsuario(nomeUsuario);
 		}
 		
 		/**
@@ -143,10 +216,8 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean removerUsuario(int nMatricula) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return false;
+			Clube clube = Clube.getInstance();
+			return clube.removerUsuario(nMatricula);
 		}
 	
 }
