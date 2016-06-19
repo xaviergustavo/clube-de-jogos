@@ -46,4 +46,8 @@ public class Calendario {
 		}
 	}
 	
+	public void horariosTurmaNaData(LocalDate data, Turma t) {
+		calendario.get(data).horariosTurma(t);
+	}
+	
 }
