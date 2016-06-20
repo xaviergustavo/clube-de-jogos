@@ -1,35 +1,35 @@
 import static org.junit.Assert.*;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Before;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import atividade.Atividade;
-import clube.Clube;
+import clube.ClubeSingleton;
+import gerenciadores.GerenciadorLocal;
+import gerenciadores.GerenciadorUsuario;
+import local.Local;
 import turma.Turma;
 import usuario.Usuario;
 
 public class ClubeTest {
 	
-	private Clube clube;
+	private static ClubeSingleton clube;
 	
-	@Before
-	public void inicializarClube() {
-		clube = new Clube(DayOfWeek.SUNDAY);
+	@BeforeClass
+	public static void inicializarClube() {
+		clube = ClubeSingleton.getInstance();
 		
-		clube.adicionarUsuario(new Usuario(1, "Lucas"));
-		clube.adicionarUsuario(new Usuario(2, "Gustavo"));
-		clube.adicionarUsuario(new Usuario(3, "Felipe"));
-		clube.adicionarUsuario(new Usuario(4, "Jose"));
-		clube.adicionarUsuario(new Usuario(5, "Jorge"));
-		clube.adicionarUsuario(new Usuario(6, "Amanda"));
-		clube.adicionarUsuario(new Usuario(7, "Sergio"));
-		clube.adicionarUsuario(new Usuario(8, "Astrogildo"));
-		clube.adicionarUsuario(new Usuario(9, "Marta"));
+		clube.adicionarUsuario(new Usuario("Lucas", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Gustavo", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Felipe", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Jose", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Jorge", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Sergio", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Astrogildo", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario(new Usuario("Marta", 21, "Rua Teste", 912367532));
 		
 		clube.adicionarAtividade(new Atividade(1, "Futebol", clube.getModalidade(3)));
 		clube.adicionarAtividade(new Atividade(2, "Basquete", clube.getModalidade(3)));
@@ -37,18 +37,16 @@ public class ClubeTest {
 		clube.adicionarAtividade(new Atividade(4, "Video Game", clube.getModalidade(1)));
 		
 		LocalDate inicioDaTurma = LocalDate.of(2016, 4, 10);
-		Map<Integer, Usuario> usuarios1 = new HashMap<>();
+		List<Usuario> usuarios1 = new ArrayList<>();
 		for (int i = 1; i < 4; i++) {
-			Usuario u = clube.getUsuario(i);
-			usuarios1.put(u.getId(), u);
+			usuarios1.add(clube.getUsuario(i));
 		}
 		Turma turma1 = new Turma(1, 20, inicioDaTurma, clube.getAtividade(1), clube.getLocal(1), usuarios1);
 		clube.adicionarTurma(turma1);
 		
-		Map<Integer, Usuario> usuarios2 = new HashMap<>();
+		List<Usuario> usuarios2 = new ArrayList<>();
 		for (int i = 3; i < 7; i++) {
-			Usuario u = clube.getUsuario(i);
-			usuarios2.put(u.getId(), u);
+			usuarios2.add(clube.getUsuario(i));
 		}
 		Turma turma2 = new Turma(2, 20, inicioDaTurma, clube.getAtividade(1), clube.getLocal(1), usuarios2);
 		clube.adicionarTurma(turma2);
@@ -69,7 +67,7 @@ public class ClubeTest {
 	
 	@Test
 	public void agendarAs22h() {
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 16);
 		
 		int horarioInicial = 22;
 		int duracao = 3;
@@ -79,7 +77,7 @@ public class ClubeTest {
 	
 	@Test
 	public void agendarDepoisDas22() {
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 16);
 		
 		int horarioInicial = 23;
 		int duracao = 3;
@@ -99,7 +97,7 @@ public class ClubeTest {
 	
 	@Test
 	public void agendarAtividadeComMenosDe2Horas() {		
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 18);
 		
 		int horarioInicial = 8;
 		int duracao = 1;
@@ -109,7 +107,7 @@ public class ClubeTest {
 	
 	@Test
 	public void agendarTurmaEmDoisHorariosNoMesmoDia() {		
-		LocalDate data = LocalDate.of(2016, 4, 13);
+		LocalDate data = LocalDate.of(2016, 4, 19);
 		
 		int horarioInicial = 14;
 		int duracao = 2;
@@ -126,7 +124,7 @@ public class ClubeTest {
 	
 	@Test
 	public void agendarDuasTurmasNoMesmoHorario() {		
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 20);
 		
 		int horarioInicial = 8;
 		int duracao = 3;
@@ -140,7 +138,7 @@ public class ClubeTest {
 	
 	@Test
 	public void usuarioEmLocaisDiferentesNoMesmoDiaEHorario() {		
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 21);
 		
 		int horarioInicial = 8;
 		int duracao = 3;
@@ -158,7 +156,7 @@ public class ClubeTest {
 		// O usuario de id = 3 esta em todas as turmas inicializadas no clube.
 		// Logo, os dois primeiros agendamentos devem passar e o terceiro deve
 		// falhar
-		LocalDate data = LocalDate.of(2016, 4, 15);
+		LocalDate data = LocalDate.of(2016, 4, 22);
 		
 		int horarioInicial = 8;
 		int duracao = 3;
@@ -171,6 +169,15 @@ public class ClubeTest {
 		horarioInicial = 17;
 		duracao = 3;
 		assertFalse(clube.agendarTurma(clube.getTurma(3), data, horarioInicial, duracao));
+	}
+	
+	@Test
+	public void teste() {
+		GerenciadorUsuario<Usuario> gerenciador = new GerenciadorUsuario<>();
+		
+		gerenciador.editarUsuario("Chaves");
+		
+		gerenciador.visualizarTodosUsuarios();
 	}
 
 }

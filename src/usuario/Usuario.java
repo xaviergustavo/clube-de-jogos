@@ -34,6 +34,15 @@ public class Usuario {
 		return String.format("%s,%d,%s,%d", nome, idade, endereco, telefone);
 	}
 	
+	// O metodo editar nao altera o atributo turmas pois vai ficar a cargo do
+	// clube e seus gerenciadores
+	public void editar(String nome, int idade, String endereco, long telefone) {
+		this.nome = nome;
+		this.idade = idade;
+		this.endereco = endereco;
+		this.telefone = telefone;
+	}
+	
 	// Getters
 
 	@Override

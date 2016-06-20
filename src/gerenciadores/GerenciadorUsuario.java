@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import clube.Clube;
+import clube.ClubeSingleton;
 import usuario.Usuario;
 
 public class GerenciadorUsuario <U>{
@@ -39,7 +39,7 @@ public class GerenciadorUsuario <U>{
 					String endereco = atributos[2];
 					long telefone = Long.parseLong(atributos[3]);
 					
-					Clube clube = Clube.getInstance();
+					ClubeSingleton clube = ClubeSingleton.getInstance();
 					
 					Usuario novo = new Usuario(nome, idade, endereco, telefone);
 					if (clube.usuarioExiste(novo)) {
@@ -63,7 +63,7 @@ public class GerenciadorUsuario <U>{
 		 * Vocę deve incrementar o arquivo a cada vez que este método for executado.
 		 */
 		public void exportaUsuariosSistemaAntigo() {
-			Clube clube = Clube.getInstance();	
+			ClubeSingleton clube = ClubeSingleton.getInstance();	
 			
 			for (Usuario usuario : clube.getUsuarios()) {
 				
@@ -84,10 +84,26 @@ public class GerenciadorUsuario <U>{
 		 * @return boolean - true se o usuário foi cadastrado ; false - caso contrário
 		 */
 		public boolean cadastrarNovoUsuario() {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
-			return false;
+			ClubeSingleton clube = ClubeSingleton.getInstance();
+			
+			// Deve vir como entrada do usuario na interface
+			String nome = "Gustavo";
+			int idade = 66;
+			String endereco = "Rua do Teste";
+			long telefone = 912345678;
+			
+			Usuario usuario = new Usuario(nome, idade, endereco, telefone);
+			
+			boolean ok = true;
+			
+			if (clube.usuarioExiste(usuario)) {
+				System.out.format("O usuario %s ja esta cadastrado no sistema\n", usuario.getNome());
+				ok = false;
+			} else {
+				clube.adicionarUsuario(usuario);
+			}
+			
+			return ok;
 		}
 		
 		/**
@@ -99,7 +115,7 @@ public class GerenciadorUsuario <U>{
 		 * um ou mais usuários năo tiverem sido cadastrados
 		 */
 		public boolean cadastrarNovosUsuarios(List<U> usuarios) {
-			Clube clube = Clube.getInstance();	
+			ClubeSingleton clube = ClubeSingleton.getInstance();	
 			
 			boolean ok = true;
 			
@@ -125,7 +141,7 @@ public class GerenciadorUsuario <U>{
 		 * 
 		 */
 		public void visualizarUsuario(String nomeUsuario) {
-			Clube clube = Clube.getInstance();
+			ClubeSingleton clube = ClubeSingleton.getInstance();
 			Usuario u = clube.getUsuario(nomeUsuario);
 			
 			if (u == null) {
@@ -148,7 +164,7 @@ public class GerenciadorUsuario <U>{
 		 * @param nMatricula - número de matrícula do usuário a ser visualizado
 		 */
 		public void visualizarUsuario(int nMatricula) {
-			Clube clube = Clube.getInstance();
+			ClubeSingleton clube = ClubeSingleton.getInstance();
 			Usuario u = clube.getUsuario(nMatricula);
 			
 			if (u == null) {
@@ -165,7 +181,7 @@ public class GerenciadorUsuario <U>{
 		 * @return int - contendo o número de usuários cadastrados
 		 */
 		public int visualizarTodosUsuarios() {
-			Clube clube = Clube.getInstance();
+			ClubeSingleton clube = ClubeSingleton.getInstance();
 			
 			List<Usuario> usuarios = clube.getUsuarios();
 			for (Usuario u : usuarios) {
@@ -181,9 +197,15 @@ public class GerenciadorUsuario <U>{
 		 *  
 		 */
 		public void editarUsuario(String nomeUsuario) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */
+			ClubeSingleton clube = ClubeSingleton.getInstance();
+			
+			// Deve vir como entrada do usuario na interface
+			String novoNome = "Sadrac";
+			int novaIdade = 66;
+			String novoEndereco = "Rua das Orquideas";
+			long novoTelefone = 912345678;
+			
+			clube.editarUsuario(nomeUsuario, novoNome, novaIdade, novoEndereco, novoTelefone);
 		}
 		
 		/**
@@ -193,9 +215,15 @@ public class GerenciadorUsuario <U>{
 		 * 
 		 */
 		public void editarUsuario(int nMatricula) {
-			/**
-			 * TODO implementar este método seguindo a descriçăo acima
-			 */	
+			ClubeSingleton clube = ClubeSingleton.getInstance();
+			
+			// Deve vir como entrada do usuario na interface
+			String novoNome = "Barak";
+			int novaIdade = 54;
+			String novoEndereco = "Rua das Tulipas";
+			long novoTelefone = 912345678;
+			
+			clube.editarUsuario(nMatricula, novoNome, novaIdade, novoEndereco, novoTelefone);
 		}
 		
 		/**
@@ -205,7 +233,7 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean  removerUsuario(String nomeUsuario) {
-			Clube clube = Clube.getInstance();
+			ClubeSingleton clube = ClubeSingleton.getInstance();
 			return clube.removerUsuario(nomeUsuario);
 		}
 		
@@ -216,7 +244,7 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean removerUsuario(int nMatricula) {
-			Clube clube = Clube.getInstance();
+			ClubeSingleton clube = ClubeSingleton.getInstance();
 			return clube.removerUsuario(nMatricula);
 		}
 	

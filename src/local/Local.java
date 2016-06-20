@@ -23,8 +23,7 @@ public class Local {
 	// os agendamentos das turmas.
 	public Calendario calendario;
 	
-	public Local(int id, String nome, CategoriaLocal categoria) {
-		this.id = id;
+	public Local(String nome, CategoriaLocal categoria) {
 		this.nome = nome;
 		this.categoria = categoria;
 		this.calendario = new Calendario();
@@ -76,6 +75,14 @@ public class Local {
 		return this.nome;
 	}
 	
+	public void exibir() {
+		System.out.format("ID: %d - Nome: %s - Categoria: %s\n", id, nome, categoria.getNome());
+	}
+	
+	public void editar(String nome) {
+		this.nome = nome;
+	}
+	
 	// Getters
 	
 	public int getId() {
@@ -92,6 +99,10 @@ public class Local {
 
 	public Calendario getCalendario() {
 		return calendario;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

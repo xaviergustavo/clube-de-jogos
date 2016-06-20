@@ -2,6 +2,9 @@ package gerenciadores;
 
 import java.util.List;
 
+import clube.ClubeSingleton;
+import local.Local;
+
 public class GerenciadorLocal<L> {
 	
 	//metodos de Locais
@@ -12,12 +15,14 @@ public class GerenciadorLocal<L> {
 	 * o mesmo nome năo realiza o cadastro e uma mensagem deve ser exibida.
 	 * @return boolean - true se o local foi cadastrado ; false - caso contrário
 	 */
-	public void cadastrarNovoLocal() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+	public boolean cadastrarNovoLocal() {
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		
+		// Deve vir como entrada do usuario na interface
+		Local local = new Local("Quadra 1", clube.getCategoria(1));
+		
+		return clube.adicionarLocal(local);
 	}
-	
 	
 	/**
 	 * Cadastra uma lista de locais.
@@ -27,10 +32,14 @@ public class GerenciadorLocal<L> {
 	 * @return boolean - true se todos os locais forem cadastrados ; false - caso
 	 * um ou mais locais năo tiverem sido cadastrados
 	 */
-	public void cadastrarNovosLocais(List<L> locais) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+	public boolean cadastrarNovosLocais(List<L> locais) {
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		boolean ok = true;
+		for (L l : locais) {
+			Local local = (Local)l;
+			ok = clube.adicionarLocal(local);
+		}
+		return ok;
 	}
 	
 	/***
@@ -39,9 +48,13 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void visualizarLocal(String nomeLocal) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		Local local = clube.getLocal(nomeLocal);
+		if (local == null) {
+			System.out.format("O local %s nao foi encontrado", nomeLocal);
+		} else {
+			local.exibir();
+		}
 	}
 	
 	/***
@@ -50,9 +63,13 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void visualizarLocal(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		Local local = clube.getLocal(id);
+		if (local == null) {
+			System.out.format("O local %d nao foi encontrado", id);
+		} else {
+			local.exibir();
+		}
 	}
 			
 	/**
@@ -60,10 +77,17 @@ public class GerenciadorLocal<L> {
 	 * @return int - contendo o número de locais cadastrados. 
 	 */
 	public int visualizarTodosLocais() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return 0;
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		
+		List<Local> locais = clube.getLocais();
+		
+		System.out.format("Quantidade de locais: %d\n", locais.size());
+		
+		for (Local local : locais) {
+			visualizarLocal(local.getId());
+		}
+		
+		return locais.size();
 	}
 			
 	/**
@@ -72,9 +96,12 @@ public class GerenciadorLocal<L> {
 	 *  
 	 */		
 	public void editarLocal(String nomeLocal) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		
+		// Deve vir como entrada do usuario na interface
+		String nomeNovo = "Quadra 99";
+		
+		clube.editarLocal(nomeLocal, nomeNovo);
 	}
 	
 	/**
@@ -84,9 +111,12 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void editarLocal(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		
+		// Deve vir como entrada do usuario na interface
+		String nomeNovo = "Quadra 99";
+		
+		clube.editarLocal(id, nomeNovo);
 	}
 			
 	/**
@@ -96,10 +126,8 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(String nomeLocal) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return false;
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		return clube.removerLocal(nomeLocal);
 	}
 			
 	/**
@@ -109,10 +137,8 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return false;
+		ClubeSingleton clube = ClubeSingleton.getInstance();
+		return clube.removerLocal(id);
 	}
 
 }

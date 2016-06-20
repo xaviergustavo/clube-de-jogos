@@ -1,0 +1,14 @@
+package gerenciadores;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class GerenciadorLocalTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

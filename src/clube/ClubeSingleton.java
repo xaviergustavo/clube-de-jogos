@@ -15,9 +15,9 @@ import modalidade.Modalidade;
 import turma.Turma;
 import usuario.Usuario;
 
-public class Clube {
+public class ClubeSingleton {
 	
-	private static Clube instance;
+	private static ClubeSingleton instance;
 	
 	// Horario de inicio do funcionamento
 	private final int inicioFuncionamento = 8;
@@ -50,11 +50,11 @@ public class Clube {
 	// Turmas existentes no clube
 	private Map<Integer, Turma> turmas;
 	
-	public static Clube getInstance() {
+	public static ClubeSingleton getInstance() {
 		if (instance == null) {
-			synchronized (Clube.class) {
+			synchronized (ClubeSingleton.class) {
 				if (instance == null) {
-					instance = new Clube();
+					instance = new ClubeSingleton();
 					instance.inicializarClube();
 				}
 			}
@@ -79,11 +79,11 @@ public class Clube {
 	}
 	
 	private void inicializarLocais() {
-		this.locais = new HashMap<>();
-		this.locais.put(1, new Local(1, "Quadra 1", this.categorias.get(1)));
-		this.locais.put(2, new Local(2, "Quadra 2", this.categorias.get(1)));
-		this.locais.put(3, new Local(3, "Sala 1", this.categorias.get(2)));
-		this.locais.put(4, new Local(4, "Sala 2", this.categorias.get(2)));
+		locais = new HashMap<>();
+		adicionarLocal(new Local("Quadra 1", this.categorias.get(1)));
+		adicionarLocal(new Local("Quadra 2", this.categorias.get(1)));
+		adicionarLocal(new Local("Sala 1", this.categorias.get(2)));
+		adicionarLocal(new Local("Sala 2", this.categorias.get(2)));
 	}
 	
 	private void inicializarModalidades() {
@@ -167,14 +167,131 @@ public class Clube {
 		return removido != null;
 	}
 	
+	public boolean editarUsuario(String nomeUsuario, String novoNome, int novaIdade, String novoEndereco, long novoTelefone) {
+		// Verificar se local com o novo nome ja existe
+		Usuario novoUsuario = getUsuario(novoNome);
+		if (novoUsuario != null) {
+			return false;
+		}
+		
+		Usuario usuario = getUsuario(nomeUsuario);
+		if (usuario == null) {
+			return false;
+		}
+		
+		usuario.editar(novoNome, novaIdade, novoEndereco, novoTelefone);
+		
+		return true;
+	}
+	
+	public boolean editarUsuario(int id, String novoNome, int novaIdade, String novoEndereco, long novoTelefone) {
+		// Verificar se local com o novo nome ja existe
+		Usuario novoUsuario = getUsuario(novoNome);
+		if (novoUsuario != null) {
+			return false;
+		}
+		
+		Usuario usuario = getUsuario(id);
+		if (usuario == null) {
+			return false;
+		}
+		
+		usuario.editar(novoNome, novaIdade, novoEndereco, novoTelefone);
+		
+		return true;
+	}
+	
 	public int quantidadeUsuarios() {
 		return usuarios.size();
+	}
+	
+	public boolean localExiste(String nomeLocal) {
+		for (Entry<Integer, Local> entry : locais.entrySet()) {
+			Local local = entry.getValue();
+			if (local.getNome().equals(nomeLocal)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	// Getters e Setters
 	
 	public Local getLocal(int id) {
 		return locais.get(id);
+	}
+	
+	public Local getLocal(String nomeLocal) {
+		for (Entry<Integer, Local> entry : locais.entrySet()) {
+			Local local = entry.getValue();
+			if (local.getNome().equals(nomeLocal)) {
+				return local;
+			}
+		}
+		return null;
+	}
+	
+	public boolean editarLocal(String nomeLocal, String novoNome) {
+		// Verificar se local com o novo nome ja existe
+		Local novoLocal = getLocal(novoNome);
+		if (novoLocal != null) {
+			return false;
+		}
+		
+		Local local = getLocal(nomeLocal);
+		if (local == null) {
+			return false;
+		}
+		
+		local.editar(novoNome);
+		
+		return true;
+	}
+	
+	public boolean editarLocal(int id, String novoNome) {
+		// Verificar se local com o novo nome ja existe
+		Local novoLocal = getLocal(novoNome);
+		
+		if (novoLocal != null) {
+			return false;
+		}
+		
+		Local local = getLocal(id);
+		if (local == null) {
+			return false;
+		}
+		
+		local.editar(novoNome);
+		
+		return true;
+	}
+	
+	public boolean removerLocal(String nomeLocal) {
+		Local local = getLocal(nomeLocal);
+		
+		if (local == null) return false;
+		
+		Local removido = locais.remove(local.getId());
+		return removido != null;
+	}
+	
+	public boolean removerLocal(int id) {
+		Local removido = locais.remove(id);
+		return removido != null;
+	}
+	
+	public CategoriaLocal getCategoria(int id) {
+		return categorias.get(id);
+	}
+	
+	public CategoriaLocal getCategoria(String nomeCategoria) {
+		for (Entry<Integer, CategoriaLocal> entry : categorias.entrySet()) {
+			CategoriaLocal categoria = entry.getValue();
+			if (categoria.getNome().equals(nomeCategoria)) {
+				return categoria;
+			}
+		}
+		return null;
 	}
 	
 	public Modalidade getModalidade(int id) {
@@ -223,8 +340,12 @@ public class Clube {
 		return atividades;
 	}
 
-	public Map<Integer, Local> getLocais() {
-		return locais;
+	public List<Local> getLocais() {
+		List<Local> lista = new ArrayList<>();
+		for (int id : locais.keySet()) {
+			lista.add(locais.get(id));
+		}
+		return lista;
 	}
 	
 	public Map<Integer, Turma> getTurmas() {
@@ -242,6 +363,15 @@ public class Clube {
 	public void adicionarUsuario(Usuario usuario) {
 		usuario.setId(usuarios.size() + 1);
 		usuarios.put(usuario.getId(), usuario);
+	}
+	
+	public boolean adicionarLocal(Local local) {
+		if (localExiste(local.getNome())) {
+			return false;
+		}
+		local.setId(locais.size() + 1);
+		locais.put(local.getId(), local);
+		return true;
 	}
 	
 	public void adicionarTurma(Turma turma) {
