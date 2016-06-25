@@ -67,9 +67,12 @@ public class GerenciadorAtividade <A>{
 	 * 
 	 */
 	public void visualizarAtividade(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		Atividade atividade = clube.getAtividade(id);
+		if (atividade == null) {
+			System.out.format("Atividade %s nao encontrada", id);
+		} else {
+			System.out.println(atividade.info());
+		}
 	}
 	
 	/**

@@ -176,7 +176,7 @@ public class ClubeTest {
 	public void teste() {
 		GerenciadorAtividade<Atividade> gerenciador = new GerenciadorAtividade<>();
 		
-		gerenciador.visualizarAtividade("Futebol");
+		gerenciador.visualizarAtividade(1);
 	}
 
 }
