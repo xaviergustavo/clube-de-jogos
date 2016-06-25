@@ -8,15 +8,15 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import clube.ClubeSingleton;
+import clube.Clube;
 import usuario.Usuario;
 
 public class GerenciadorUsuario <U>{
 
-	private ClubeSingleton clube;
+	private Clube clube;
 	
 	public GerenciadorUsuario() {
-		this.clube = ClubeSingleton.getInstance();
+		this.clube = Clube.getInstance();
 	}
 	
 	

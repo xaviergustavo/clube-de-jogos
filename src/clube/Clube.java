@@ -15,9 +15,9 @@ import modalidade.Modalidade;
 import turma.Turma;
 import usuario.Usuario;
 
-public class ClubeSingleton {
+public class Clube {
 	
-	private static ClubeSingleton instance;
+	private static Clube instance;
 	
 	// Horario de inicio do funcionamento
 	private final int inicioFuncionamento = 8;
@@ -50,11 +50,11 @@ public class ClubeSingleton {
 	// Turmas existentes no clube
 	private Map<Integer, Turma> turmas;
 	
-	public static ClubeSingleton getInstance() {
+	public static Clube getInstance() {
 		if (instance == null) {
-			synchronized (ClubeSingleton.class) {
+			synchronized (Clube.class) {
 				if (instance == null) {
-					instance = new ClubeSingleton();
+					instance = new Clube();
 					instance.inicializarClube();
 				}
 			}

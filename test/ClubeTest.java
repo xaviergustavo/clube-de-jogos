@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import atividade.Atividade;
-import clube.ClubeSingleton;
+import clube.Clube;
 import gerenciadores.GerenciadorLocal;
 import gerenciadores.GerenciadorUsuario;
 import local.Local;
@@ -16,11 +16,11 @@ import usuario.Usuario;
 
 public class ClubeTest {
 	
-	private static ClubeSingleton clube;
+	private static Clube clube;
 	
 	@BeforeClass
 	public static void inicializarClube() {
-		clube = ClubeSingleton.getInstance();
+		clube = Clube.getInstance();
 		
 		clube.adicionarUsuario(new Usuario("Lucas", 21, "Rua Teste", 912367532));
 		clube.adicionarUsuario(new Usuario("Gustavo", 21, "Rua Teste", 912367532));

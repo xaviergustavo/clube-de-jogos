@@ -2,15 +2,15 @@ package gerenciadores;
 
 import java.util.List;
 
-import clube.ClubeSingleton;
+import clube.Clube;
 import local.Local;
 
 public class GerenciadorLocal<L> {
 	
-	private ClubeSingleton clube;
+	private Clube clube;
 	
 	public GerenciadorLocal() {
-		clube = ClubeSingleton.getInstance();
+		clube = Clube.getInstance();
 	}
 	
 	//metodos de Locais
