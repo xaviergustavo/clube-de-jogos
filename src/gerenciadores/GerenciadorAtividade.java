@@ -80,10 +80,11 @@ public class GerenciadorAtividade <A>{
 	 * @return int - contendo o numero de atividades cadastradas 
 	 */
 	public int visualizarTodasAtividades() {
-		return 0;
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		List<Atividade> atividades = clube.atividades();
+		for (Atividade atividade : atividades) {
+			System.out.println(atividade.info());
+		}
+		return atividades.size();
 	}
 	
 	
