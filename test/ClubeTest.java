@@ -1,17 +1,17 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import atividade.Atividade;
 import clube.Clube;
 import gerenciadores.GerenciadorAtividade;
-import gerenciadores.GerenciadorLocal;
 import gerenciadores.GerenciadorUsuario;
-import local.Local;
 import turma.Turma;
 import usuario.Usuario;
 
@@ -23,14 +23,14 @@ public class ClubeTest {
 	public static void inicializarClube() {
 		clube = Clube.getInstance();
 		
-		clube.adicionarUsuario(new Usuario("Lucas", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Gustavo", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Felipe", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Jose", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Jorge", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Sergio", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Astrogildo", 21, "Rua Teste", 912367532));
-		clube.adicionarUsuario(new Usuario("Marta", 21, "Rua Teste", 912367532));
+		clube.adicionarUsuario("Lucas", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Gustavo", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Felipe", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Jose", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Jorge", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Sergio", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Astrogildo", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Marta", 21, "Rua Teste", 912367532);
 		
 		clube.adicionarAtividade("Futebol", clube.getModalidade(3));
 		clube.adicionarAtividade("Basquete", clube.getModalidade(3));
@@ -174,17 +174,9 @@ public class ClubeTest {
 	
 	@Test
 	public void teste() {
-		GerenciadorAtividade<Atividade> gerenciador = new GerenciadorAtividade<>();
+		GerenciadorUsuario<Usuario> gerenciador = new GerenciadorUsuario<>();
 		
-		for (Atividade a : clube.atividades()) {
-			System.out.println(a);
-		}
-		
-		System.out.println(gerenciador.removerAtividade(1));
-		
-		for (Atividade a : clube.atividades()) {
-			System.out.println(a);
-		}
+		gerenciador.cadastrarNovoUsuario();
 	}
 
 }

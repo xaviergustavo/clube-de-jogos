@@ -148,9 +148,9 @@ public class Clube {
 		}
 	}
 	
-	public boolean usuarioExiste(Usuario usuario) {
-		for (Entry<Integer, Usuario> entry : usuarios.entrySet()) {
-			if (entry.getValue().equals(usuario)) {
+	public boolean usuarioExiste(String nomeUsuario) {
+		for (Usuario usuario : usuarios.values()) {
+			if (usuario.getNome().equals(nomeUsuario)) {
 				return true;
 			}
 		}
@@ -224,16 +224,17 @@ public class Clube {
 	}
 	
 	public List<Usuario> getUsuarios() {
-		List<Usuario> lista = new ArrayList<>();
-		for (Entry<Integer, Usuario> entry : usuarios.entrySet()) {
-			lista.add(entry.getValue());
-		}
-		return lista;
+		return new ArrayList<Usuario>(usuarios.values());
 	}
 	
-	public void adicionarUsuario(Usuario usuario) {
-		usuario.setId(usuarios.size() + 1);
-		usuarios.put(usuario.getId(), usuario);
+	public boolean adicionarUsuario(String nome, int idade, String endereco, long telefone) {
+		if (usuarioExiste(nome))  {
+			return false;
+		}
+		Usuario novo = new Usuario(nome, idade, endereco, telefone);
+		novo.setId(usuarios.size() + 1);
+		usuarios.put(novo.getId(), novo);
+		return true;
 	}
 	
 	// Local
