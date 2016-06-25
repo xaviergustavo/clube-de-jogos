@@ -93,6 +93,8 @@ public class Clube {
 		this.modalidades.put(3, new Modalidade(3, "Fisico", this.categorias.get(1)));
 	}
 	
+	// Agendamentos
+	
 	public boolean usuarioAgendado(Usuario usuario, LocalDate data, int horario) {
 		for (Entry<Integer, Local> entry : locais.entrySet()) {
 			Local local = entry.getValue();
@@ -137,6 +139,8 @@ public class Clube {
 	public void imprimeCalendario(Local local, LocalDate data) {
 		local.imprimeCalendario(data);
 	}
+	
+	// Usuarios
 	
 	public void imprimeUsuarios() {
 		for (Entry<Integer, Usuario> entry : usuarios.entrySet()) {
@@ -205,6 +209,35 @@ public class Clube {
 		return usuarios.size();
 	}
 	
+	public Usuario getUsuario(int id) {
+		return usuarios.get(id);
+	}
+	
+	public Usuario getUsuario(String nome) {
+		List<Usuario> usuarios = getUsuarios();
+		for (Usuario u : usuarios) {
+			if (u.getNome().equals(nome)) {
+				return u;
+			}
+		}
+		return null;
+	}
+	
+	public List<Usuario> getUsuarios() {
+		List<Usuario> lista = new ArrayList<>();
+		for (Entry<Integer, Usuario> entry : usuarios.entrySet()) {
+			lista.add(entry.getValue());
+		}
+		return lista;
+	}
+	
+	public void adicionarUsuario(Usuario usuario) {
+		usuario.setId(usuarios.size() + 1);
+		usuarios.put(usuario.getId(), usuario);
+	}
+	
+	// Local
+	
 	public boolean localExiste(String nomeLocal) {
 		for (Entry<Integer, Local> entry : locais.entrySet()) {
 			Local local = entry.getValue();
@@ -215,10 +248,16 @@ public class Clube {
 		return false;
 	}
 	
-	// Getters e Setters
-	
 	public Local getLocal(int id) {
 		return locais.get(id);
+	}
+	
+	public List<Local> getLocais() {
+		List<Local> lista = new ArrayList<>();
+		for (int id : locais.keySet()) {
+			lista.add(locais.get(id));
+		}
+		return lista;
 	}
 	
 	public Local getLocal(String nomeLocal) {
@@ -229,6 +268,15 @@ public class Clube {
 			}
 		}
 		return null;
+	}
+	
+	public boolean adicionarLocal(Local local) {
+		if (localExiste(local.getNome())) {
+			return false;
+		}
+		local.setId(locais.size() + 1);
+		locais.put(local.getId(), local);
+		return true;
 	}
 	
 	public boolean editarLocal(String nomeLocal, String novoNome) {
@@ -280,6 +328,8 @@ public class Clube {
 		return removido != null;
 	}
 	
+	// Categoria
+	
 	public CategoriaLocal getCategoria(int id) {
 		return categorias.get(id);
 	}
@@ -294,27 +344,41 @@ public class Clube {
 		return null;
 	}
 	
+	// Modalidade
+	
 	public Modalidade getModalidade(int id) {
 		return modalidades.get(id);
 	}
+	
+	// Atividade
 	
 	public Atividade getAtividade(int id) {
 		return atividades.get(id);
 	}
 	
-	public Usuario getUsuario(int id) {
-		return usuarios.get(id);
+	public Map<Integer, Atividade> getAtividades() {
+		return atividades;
 	}
 	
-	public Usuario getUsuario(String nome) {
-		List<Usuario> usuarios = getUsuarios();
-		for (Usuario u : usuarios) {
-			if (u.getNome().equals(nome)) {
-				return u;
-			}
-		}
-		return null;
+	public void adicionarAtividade(Atividade atividade) {
+		atividades.put(atividade.getId(), atividade);
 	}
+	
+	// Turma
+	
+	public Map<Integer, Turma> getTurmas() {
+		return turmas;
+	}
+	
+	// Getters
+	
+	public Turma getTurma(int id) {
+		return turmas.get(id);
+	}
+	
+	public void adicionarTurma(Turma turma) {
+		turmas.put(turma.getId(), turma);
+	}	
 	
 	public int getInicioFuncionamento() {
 		return inicioFuncionamento;
@@ -326,55 +390,5 @@ public class Clube {
 
 	public DayOfWeek getFechado() {
 		return fechado;
-	}
-
-	public List<Usuario> getUsuarios() {
-		List<Usuario> lista = new ArrayList<>();
-		for (Entry<Integer, Usuario> entry : usuarios.entrySet()) {
-			lista.add(entry.getValue());
-		}
-		return lista;
-	}
-
-	public Map<Integer, Atividade> getAtividades() {
-		return atividades;
-	}
-
-	public List<Local> getLocais() {
-		List<Local> lista = new ArrayList<>();
-		for (int id : locais.keySet()) {
-			lista.add(locais.get(id));
-		}
-		return lista;
-	}
-	
-	public Map<Integer, Turma> getTurmas() {
-		return turmas;
-	}
-	
-	public Turma getTurma(int id) {
-		return turmas.get(id);
-	}
-	
-	public void adicionarAtividade(Atividade atividade) {
-		atividades.put(atividade.getId(), atividade);
-	}
-	
-	public void adicionarUsuario(Usuario usuario) {
-		usuario.setId(usuarios.size() + 1);
-		usuarios.put(usuario.getId(), usuario);
-	}
-	
-	public boolean adicionarLocal(Local local) {
-		if (localExiste(local.getNome())) {
-			return false;
-		}
-		local.setId(locais.size() + 1);
-		locais.put(local.getId(), local);
-		return true;
-	}
-	
-	public void adicionarTurma(Turma turma) {
-		turmas.put(turma.getId(), turma);
 	}
 }
