@@ -7,6 +7,12 @@ import local.Local;
 
 public class GerenciadorLocal<L> {
 	
+	private ClubeSingleton clube;
+	
+	public GerenciadorLocal() {
+		clube = ClubeSingleton.getInstance();
+	}
+	
 	//metodos de Locais
 	
 	/**
@@ -16,7 +22,6 @@ public class GerenciadorLocal<L> {
 	 * @return boolean - true se o local foi cadastrado ; false - caso contrário
 	 */
 	public boolean cadastrarNovoLocal() {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		
 		// Deve vir como entrada do usuario na interface
 		Local local = new Local("Quadra 1", clube.getCategoria(1));
@@ -33,7 +38,6 @@ public class GerenciadorLocal<L> {
 	 * um ou mais locais năo tiverem sido cadastrados
 	 */
 	public boolean cadastrarNovosLocais(List<L> locais) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		boolean ok = true;
 		for (L l : locais) {
 			Local local = (Local)l;
@@ -48,7 +52,6 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void visualizarLocal(String nomeLocal) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		Local local = clube.getLocal(nomeLocal);
 		if (local == null) {
 			System.out.format("O local %s nao foi encontrado", nomeLocal);
@@ -63,7 +66,6 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void visualizarLocal(int id) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		Local local = clube.getLocal(id);
 		if (local == null) {
 			System.out.format("O local %d nao foi encontrado", id);
@@ -77,8 +79,6 @@ public class GerenciadorLocal<L> {
 	 * @return int - contendo o número de locais cadastrados. 
 	 */
 	public int visualizarTodosLocais() {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
-		
 		List<Local> locais = clube.getLocais();
 		
 		System.out.format("Quantidade de locais: %d\n", locais.size());
@@ -96,8 +96,6 @@ public class GerenciadorLocal<L> {
 	 *  
 	 */		
 	public void editarLocal(String nomeLocal) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
-		
 		// Deve vir como entrada do usuario na interface
 		String nomeNovo = "Quadra 99";
 		
@@ -111,8 +109,6 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void editarLocal(int id) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
-		
 		// Deve vir como entrada do usuario na interface
 		String nomeNovo = "Quadra 99";
 		
@@ -126,7 +122,6 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(String nomeLocal) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		return clube.removerLocal(nomeLocal);
 	}
 			
@@ -137,7 +132,6 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(int id) {
-		ClubeSingleton clube = ClubeSingleton.getInstance();
 		return clube.removerLocal(id);
 	}
 

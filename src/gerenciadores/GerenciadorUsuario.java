@@ -13,6 +13,12 @@ import usuario.Usuario;
 
 public class GerenciadorUsuario <U>{
 
+	private ClubeSingleton clube;
+	
+	public GerenciadorUsuario() {
+		this.clube = ClubeSingleton.getInstance();
+	}
+	
 	
 	// metodos de usuários
 		/**
@@ -39,8 +45,6 @@ public class GerenciadorUsuario <U>{
 					String endereco = atributos[2];
 					long telefone = Long.parseLong(atributos[3]);
 					
-					ClubeSingleton clube = ClubeSingleton.getInstance();
-					
 					Usuario novo = new Usuario(nome, idade, endereco, telefone);
 					if (clube.usuarioExiste(novo)) {
 						System.out.format("O usuario %s ja esta cadastrado no sistema\n", novo.getNome());
@@ -63,8 +67,6 @@ public class GerenciadorUsuario <U>{
 		 * Vocę deve incrementar o arquivo a cada vez que este método for executado.
 		 */
 		public void exportaUsuariosSistemaAntigo() {
-			ClubeSingleton clube = ClubeSingleton.getInstance();	
-			
 			for (Usuario usuario : clube.getUsuarios()) {
 				
 				try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("usuarios.dat", true)))) {
@@ -84,8 +86,6 @@ public class GerenciadorUsuario <U>{
 		 * @return boolean - true se o usuário foi cadastrado ; false - caso contrário
 		 */
 		public boolean cadastrarNovoUsuario() {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
-			
 			// Deve vir como entrada do usuario na interface
 			String nome = "Gustavo";
 			int idade = 66;
@@ -115,8 +115,6 @@ public class GerenciadorUsuario <U>{
 		 * um ou mais usuários năo tiverem sido cadastrados
 		 */
 		public boolean cadastrarNovosUsuarios(List<U> usuarios) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();	
-			
 			boolean ok = true;
 			
 			for (U u : usuarios) {
@@ -141,7 +139,6 @@ public class GerenciadorUsuario <U>{
 		 * 
 		 */
 		public void visualizarUsuario(String nomeUsuario) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
 			Usuario u = clube.getUsuario(nomeUsuario);
 			
 			if (u == null) {
@@ -164,7 +161,6 @@ public class GerenciadorUsuario <U>{
 		 * @param nMatricula - número de matrícula do usuário a ser visualizado
 		 */
 		public void visualizarUsuario(int nMatricula) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
 			Usuario u = clube.getUsuario(nMatricula);
 			
 			if (u == null) {
@@ -181,8 +177,6 @@ public class GerenciadorUsuario <U>{
 		 * @return int - contendo o número de usuários cadastrados
 		 */
 		public int visualizarTodosUsuarios() {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
-			
 			List<Usuario> usuarios = clube.getUsuarios();
 			for (Usuario u : usuarios) {
 				visualizarUsuario(u.getNome());
@@ -196,9 +190,7 @@ public class GerenciadorUsuario <U>{
 		 * @param nomeUsuario - nome do usuário a ser editado
 		 *  
 		 */
-		public void editarUsuario(String nomeUsuario) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
-			
+		public void editarUsuario(String nomeUsuario) {			
 			// Deve vir como entrada do usuario na interface
 			String novoNome = "Sadrac";
 			int novaIdade = 66;
@@ -215,8 +207,6 @@ public class GerenciadorUsuario <U>{
 		 * 
 		 */
 		public void editarUsuario(int nMatricula) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
-			
 			// Deve vir como entrada do usuario na interface
 			String novoNome = "Barak";
 			int novaIdade = 54;
@@ -233,7 +223,6 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean  removerUsuario(String nomeUsuario) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
 			return clube.removerUsuario(nomeUsuario);
 		}
 		
@@ -244,7 +233,6 @@ public class GerenciadorUsuario <U>{
 		 * @return true - se confirma remoçăo; false - se cancela remoçăo
 		 */
 		public boolean removerUsuario(int nMatricula) {
-			ClubeSingleton clube = ClubeSingleton.getInstance();
 			return clube.removerUsuario(nMatricula);
 		}
 	
