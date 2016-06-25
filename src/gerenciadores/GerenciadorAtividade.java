@@ -2,6 +2,7 @@ package gerenciadores;
 
 import java.util.List;
 
+import atividade.Atividade;
 import clube.Clube;
 
 public class GerenciadorAtividade <A>{
@@ -37,10 +38,12 @@ public class GerenciadorAtividade <A>{
 	 * uma ou mais atividades năo tiverem sido cadastradas
 	 */
 	public boolean cadastrarNovasAtividade(List<A> atividades) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return false;
+		boolean ok = true;
+		for (A atividade : atividades) {
+			Atividade nova = (Atividade)atividade;
+			ok = clube.adicionarAtividade(nova.getNome(), nova.getModalidade());
+		}
+		return ok;
 	}
 			
 	/***

@@ -176,11 +176,21 @@ public class ClubeTest {
 	public void teste() {
 		GerenciadorAtividade<Atividade> gerenciador = new GerenciadorAtividade<>();
 		
+		List<Atividade> novas = new ArrayList<>();
+		
+		novas.add(new Atividade("Futsal", clube.getModalidade(1)));
+		novas.add(new Atividade("Dama", clube.getModalidade(1)));
+		novas.add(new Atividade("Banco Imobiliario", clube.getModalidade(1)));
+		
 		for (Atividade a : clube.atividades()) {
 			System.out.println(a.getNome());
 		}
 		
-		gerenciador.cadastrarAtividade();
+		System.out.println();
+		
+		System.out.println(gerenciador.cadastrarNovasAtividade(novas));
+		
+		System.out.println();
 		
 		for (Atividade a : clube.atividades()) {
 			System.out.println(a.getNome());
