@@ -176,7 +176,15 @@ public class ClubeTest {
 	public void teste() {
 		GerenciadorAtividade<Atividade> gerenciador = new GerenciadorAtividade<>();
 		
-		System.out.println(gerenciador.visualizarTodasAtividades());
+		for (Atividade a : clube.atividades()) {
+			System.out.println(a);
+		}
+		
+		gerenciador.editarAtividade("Futebol");
+		
+		for (Atividade a : clube.atividades()) {
+			System.out.println(a);
+		}
 	}
 
 }

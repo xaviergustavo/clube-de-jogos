@@ -15,6 +15,10 @@ public class Atividade {
 		this.modalidade = modalidade;
 	}
 	
+	public void editar(String nome) {
+		this.nome = nome;
+	}
+	
 	public String toString() {
 		return this.nome;
 	}

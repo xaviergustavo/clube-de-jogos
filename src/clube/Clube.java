@@ -370,12 +370,7 @@ public class Clube {
 	}
 	
 	public boolean atividadeExiste(String nome) {
-		for (Atividade atividade : atividades()) {
-			if (atividade.getNome().equals(nome)) {
-				return true;
-			}
-		}
-		return false;
+		return getAtividade(nome) != null;
 	}
 	
 	public boolean adicionarAtividade(String nomeAtividade, Modalidade modalidade) {
@@ -385,6 +380,18 @@ public class Clube {
 		Atividade nova = new Atividade(nomeAtividade, modalidade);
 		nova.setId(atividades.size()+1);
 		atividades.put(nova.getId(), nova);
+		return true;
+	}
+	
+	public boolean editarAtividade(String nomeAtividade, String novoNome) {
+		Atividade atividade = getAtividade(nomeAtividade);
+		if (atividade == null) {
+			return false;
+		}
+		if (atividadeExiste(novoNome)) {
+			return false;
+		}
+		atividade.editar(novoNome);
 		return true;
 	}
 	
