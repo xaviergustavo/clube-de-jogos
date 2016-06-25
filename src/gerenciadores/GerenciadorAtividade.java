@@ -119,10 +119,8 @@ public class GerenciadorAtividade <A>{
 	 * @param nomeAtividade - nome atividade a ser removida
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
-	public void removerAtividade(String nomeAtividade) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+	public boolean removerAtividade(String nomeAtividade) {
+		return clube.removerAtividade(nomeAtividade);
 	}
 	
 	/**
@@ -131,10 +129,8 @@ public class GerenciadorAtividade <A>{
 	 * @param id - identificador da atividade a ser removida
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
-	public void removerAtividade(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+	public boolean removerAtividade(int id) {
+		return clube.removerAtividade(id);
 	}
 
 }

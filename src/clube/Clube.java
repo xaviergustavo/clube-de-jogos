@@ -395,7 +395,7 @@ public class Clube {
 		return true;
 	}
 	
-	public boolean editarAtividade(int id, String novoNome) {
+	public boolean editarAtividade(int id, String novoNome) {		
 		Atividade atividade = getAtividade(id);
 		if (atividade == null) {
 			return false;
@@ -405,6 +405,18 @@ public class Clube {
 		}
 		atividade.editar(novoNome);
 		return true;
+	}
+	
+	public boolean removerAtividade(String nomeAtividade) {
+		Atividade atividade = getAtividade(nomeAtividade);
+		if (atividade == null) {
+			return false;
+		}
+		return atividades.remove(atividade.getId()) != null;
+	}
+	
+	public boolean removerAtividade(int id) {
+		return atividades.remove(id) != null;
 	}
 	
 	// Turma
