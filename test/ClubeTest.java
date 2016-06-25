@@ -180,7 +180,7 @@ public class ClubeTest {
 			System.out.println(a);
 		}
 		
-		gerenciador.editarAtividade("Futebol");
+		gerenciador.editarAtividade(2);
 		
 		for (Atividade a : clube.atividades()) {
 			System.out.println(a);

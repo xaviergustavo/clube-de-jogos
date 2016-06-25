@@ -107,9 +107,10 @@ public class GerenciadorAtividade <A>{
 	 * 
 	 */		
 	public void editarAtividade(int id) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		// Dados virao da interface do usuario
+		String novoNome = "Volei";
+		
+		clube.editarAtividade(id, novoNome);
 	}
 	
 	/**

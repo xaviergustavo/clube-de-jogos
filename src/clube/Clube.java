@@ -395,6 +395,18 @@ public class Clube {
 		return true;
 	}
 	
+	public boolean editarAtividade(int id, String novoNome) {
+		Atividade atividade = getAtividade(id);
+		if (atividade == null) {
+			return false;
+		}
+		if (atividadeExiste(novoNome)) {
+			return false;
+		}
+		atividade.editar(novoNome);
+		return true;
+	}
+	
 	// Turma
 	
 	public Map<Integer, Turma> getTurmas() {
