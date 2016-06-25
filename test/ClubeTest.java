@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import atividade.Atividade;
 import clube.Clube;
+import gerenciadores.GerenciadorAtividade;
 import gerenciadores.GerenciadorLocal;
 import gerenciadores.GerenciadorUsuario;
 import local.Local;
@@ -31,10 +32,10 @@ public class ClubeTest {
 		clube.adicionarUsuario(new Usuario("Astrogildo", 21, "Rua Teste", 912367532));
 		clube.adicionarUsuario(new Usuario("Marta", 21, "Rua Teste", 912367532));
 		
-		clube.adicionarAtividade(new Atividade(1, "Futebol", clube.getModalidade(3)));
-		clube.adicionarAtividade(new Atividade(2, "Basquete", clube.getModalidade(3)));
-		clube.adicionarAtividade(new Atividade(3, "Xadrez", clube.getModalidade(2)));
-		clube.adicionarAtividade(new Atividade(4, "Video Game", clube.getModalidade(1)));
+		clube.adicionarAtividade("Futebol", clube.getModalidade(3));
+		clube.adicionarAtividade("Basquete", clube.getModalidade(3));
+		clube.adicionarAtividade("Xadrez", clube.getModalidade(2));
+		clube.adicionarAtividade("Video Game", clube.getModalidade(1));
 		
 		LocalDate inicioDaTurma = LocalDate.of(2016, 4, 10);
 		List<Usuario> usuarios1 = new ArrayList<>();
@@ -173,11 +174,17 @@ public class ClubeTest {
 	
 	@Test
 	public void teste() {
-		GerenciadorUsuario<Usuario> gerenciador = new GerenciadorUsuario<>();
+		GerenciadorAtividade<Atividade> gerenciador = new GerenciadorAtividade<>();
 		
-		gerenciador.editarUsuario("Chaves");
+		for (Atividade a : clube.atividades()) {
+			System.out.println(a.getNome());
+		}
 		
-		gerenciador.visualizarTodosUsuarios();
+		gerenciador.cadastrarAtividade();
+		
+		for (Atividade a : clube.atividades()) {
+			System.out.println(a.getNome());
+		}
 	}
 
 }

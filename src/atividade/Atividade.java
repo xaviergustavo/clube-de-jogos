@@ -10,8 +10,7 @@ public class Atividade {
 	
 	private Modalidade modalidade;
 	
-	public Atividade(int id, String nome, Modalidade modalidade) {
-		this.id = id;
+	public Atividade(String nome, Modalidade modalidade) {
 		this.nome = nome;
 		this.modalidade = modalidade;
 	}
@@ -29,9 +28,12 @@ public class Atividade {
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public Modalidade getModalidade() {
 		return modalidade;
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
 }

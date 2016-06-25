@@ -356,12 +356,27 @@ public class Clube {
 		return atividades.get(id);
 	}
 	
-	public Map<Integer, Atividade> getAtividades() {
-		return atividades;
+	public List<Atividade> atividades() {
+		return new ArrayList<>(atividades.values());
 	}
 	
-	public void adicionarAtividade(Atividade atividade) {
-		atividades.put(atividade.getId(), atividade);
+	public boolean atividadeExiste(String nome) {
+		for (Atividade atividade : atividades()) {
+			if (atividade.getNome().equals(nome)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean adicionarAtividade(String nomeAtividade, Modalidade modalidade) {
+		if (atividadeExiste(nomeAtividade) || nomeAtividade.length() < 2) {
+			return false;
+		}
+		Atividade nova = new Atividade(nomeAtividade, modalidade);
+		nova.setId(atividades.size()+1);
+		atividades.put(nova.getId(), nova);
+		return true;
 	}
 	
 	// Turma
@@ -370,15 +385,15 @@ public class Clube {
 		return turmas;
 	}
 	
-	// Getters
-	
 	public Turma getTurma(int id) {
 		return turmas.get(id);
 	}
 	
 	public void adicionarTurma(Turma turma) {
 		turmas.put(turma.getId(), turma);
-	}	
+	}
+	
+	// Getters	
 	
 	public int getInicioFuncionamento() {
 		return inicioFuncionamento;

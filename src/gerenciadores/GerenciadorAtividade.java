@@ -2,7 +2,15 @@ package gerenciadores;
 
 import java.util.List;
 
+import clube.Clube;
+
 public class GerenciadorAtividade <A>{
+	
+	private Clube clube;
+	
+	public GerenciadorAtividade() {
+		this.clube = Clube.getInstance();
+	}
 	
 	// metodos de Atividades
 						
@@ -15,10 +23,10 @@ public class GerenciadorAtividade <A>{
 	 * @return boolean - true se a atividade foi cadastrada ; false - caso contrário
 	 */
 	public boolean cadastrarAtividade() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return false;
+		// Valores virao da interface do usuario
+		String nome = "Skateboard";
+		
+		return clube.adicionarAtividade(nome, clube.getModalidade(1));
 	}
 	
 	/**
