@@ -19,6 +19,10 @@ public class Atividade {
 		return this.nome;
 	}
 	
+	public String info() {
+		return String.format("Nome: %s - Modalidade: %s", nome, modalidade.getNome());
+	}
+	
 	// Getters
 
 	public int getId() {

@@ -52,9 +52,12 @@ public class GerenciadorAtividade <A>{
 	 * 
 	 */		
 	public void visualizarAtividade(String nomeAtividade) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		Atividade atividade = clube.getAtividade(nomeAtividade);
+		if (atividade == null) {
+			System.out.format("Atividade %s nao encontrada", nomeAtividade);
+		} else {
+			System.out.println(atividade.info());
+		}
 	}
 	
 	

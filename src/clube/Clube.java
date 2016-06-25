@@ -356,6 +356,15 @@ public class Clube {
 		return atividades.get(id);
 	}
 	
+	public Atividade getAtividade(String nome) {
+		for (Atividade atividade : atividades()) {
+			if (atividade.getNome().equals(nome)) {
+				return atividade;
+			}
+		}
+		return null;
+	}
+	
 	public List<Atividade> atividades() {
 		return new ArrayList<>(atividades.values());
 	}
