@@ -1,7 +1,6 @@
 package clube;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,49 +94,51 @@ public class Clube {
 	
 	// Agendamentos
 	
-	public boolean usuarioAgendado(Usuario usuario, LocalDate data, int horario) {
-		for (Entry<Integer, Local> entry : locais.entrySet()) {
-			Local local = entry.getValue();
-			if (local.usuarioAgendado(usuario, data, horario)) {
+	public boolean usuarioAgendado(Usuario usuario, DayOfWeek dia, int horario) {
+		for (Local local : locais.values()) {
+			if (local.usuarioAgendado(usuario, dia, horario)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public int agendamentosNoDia(Usuario usuario, LocalDate data) {
+	public int agendamentosNoDia(Usuario usuario, DayOfWeek dia) {
 		int agendamentos = 0;
 		for (Entry<Integer, Local> entry : locais.entrySet()) {
 			Local local = entry.getValue();
-			agendamentos += local.agendamentosNoDia(usuario, data);
+			agendamentos += local.agendamentosNoDia(usuario, dia);
 		}
 		return agendamentos;
 	}
 	
-	public boolean agendarTurma(Turma turma, LocalDate data, int horarioInicial, int duracao) {
-		if (data.isBefore(turma.getInicio()) || data.isAfter(turma.getFim())) {
+	public boolean agendarTurma(Turma turma, DayOfWeek dia, int horarioInicial, int duracao) {
+//		for (Usuario usuario : usuarios.values()) {
+//			int agendamentos = agendamentosNoDia(usuario, dia);
+//			if (agendamentos >= 2) {		
+//				return false;
+//			}
+//			for (int horario = horarioInicial; horario < horarioInicial + duracao; horario++) {
+//				if (usuarioAgendado(usuario, dia, horario)) {
+//					return false;
+//				}
+//			}
+//		}
+		if (turma.getUsuarios().size() > 0) {
 			return false;
 		}
-		for (Entry<Integer, Usuario> entry : turma.getUsuarios().entrySet()) {
-			Usuario usuario = entry.getValue();
-			int agendamentos = agendamentosNoDia(usuario, data);
-			if (agendamentos >= 2) {		
-				return false;
-			}
-			for (int horario = horarioInicial; horario < horarioInicial + duracao; horario++) {
-				if (usuarioAgendado(usuario, data, horario)) {
-					return false;
-				}
-			}
-		}
-		if (data.getDayOfWeek().equals(fechado) || duracao < duracaoMinima) {
+		if (dia.equals(fechado) || duracao < duracaoMinima) {
 			return false;
 		}
-		return turma.getLocal().agendarTurma(turma, data, horarioInicial, duracao);
+		boolean ok =  turma.getLocal().agendarTurma(turma, dia, horarioInicial, duracao);
+		if (ok) {
+			adicionarTurma(turma);
+		}
+		return ok;
 	}
 	
-	public void imprimeCalendario(Local local, LocalDate data) {
-		local.imprimeCalendario(data);
+	public void imprimeCalendario(Local local, DayOfWeek dia) {
+		local.imprimeCalendario(dia);
 	}
 	
 	// Usuarios
@@ -329,6 +330,14 @@ public class Clube {
 		return removido != null;
 	}
 	
+	public void exibirTurmas(Local local) {
+		for (Turma t : getTurmas()) {
+			if (t.getLocal().equals(local)) {
+				local.imprimirHorariosTurma(t);				
+			}
+		}
+	}
+	
 	// Categoria
 	
 	public CategoriaLocal getCategoria(int id) {
@@ -420,18 +429,50 @@ public class Clube {
 		return atividades.remove(id) != null;
 	}
 	
+	public List<Turma> turmasPorAtividade(Atividade atividade) {
+		List<Turma> turmas = new ArrayList<>();
+		for (Turma turma : this.turmas.values()) {
+			if (turma.getAtividade().equals(atividade)) {
+				turmas.add(turma);
+			}
+		}
+		return turmas;
+	}
+	
 	// Turma
 	
-	public Map<Integer, Turma> getTurmas() {
-		return turmas;
+	public List<Turma> getTurmas() {
+		return new ArrayList<>(turmas.values());
 	}
 	
 	public Turma getTurma(int id) {
 		return turmas.get(id);
 	}
 	
-	public void adicionarTurma(Turma turma) {
+	private void adicionarTurma(Turma turma) {
+		turma.setId(turmas.size() + 1);
 		turmas.put(turma.getId(), turma);
+	}
+	
+	public boolean adicionarUsuarioTurma(Usuario usuario, Turma turma) {
+		return true;
+	}
+	
+	public boolean removerTurma(Turma turma) {
+		for (Usuario usuario : turma.getUsuarios()) {
+			usuario.removerTurma(turma);
+		}
+		
+		turma.getLocal().removerTurma(turma);
+		
+		turmas.remove(turma.getId());
+		return true;
+	}
+	
+	public void exibirTurmas() {
+		for (Turma t : turmas.values()) {
+			System.out.println(t);
+		}
 	}
 	
 	// Getters	

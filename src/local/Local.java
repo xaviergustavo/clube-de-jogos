@@ -1,9 +1,12 @@
 package local;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import calendario.Calendario;
 import calendario.Cronograma;
@@ -29,31 +32,31 @@ public class Local {
 		this.calendario = new Calendario();
 	}
 	
-	public int agendamentosNoDia(Usuario usuario, LocalDate data) {
-		return calendario.agendamentosNoDia(usuario, data);
+	public int agendamentosNoDia(Usuario usuario, DayOfWeek dia) {
+		return calendario.agendamentosNoDia(usuario, dia);
 	}
 	
-	public boolean usuarioAgendado(Usuario usuario, LocalDate data, int horario) {
-		return calendario.usuarioAgendado(usuario, data, horario);
+	public boolean usuarioAgendado(Usuario usuario, DayOfWeek dia, int horario) {
+		return calendario.usuarioAgendado(usuario, dia, horario);
 	}
 	
-	public boolean agendarTurma(Turma turma, LocalDate data, int horarioInicio, int duracao) {
+	public boolean agendarTurma(Turma turma, DayOfWeek dia, int horarioInicio, int duracao) {
 		if (!turma.getLocal().equals(this)) {
 			return false;
 		}
 		if (!turma.getAtividade().getModalidade().getCategoria().equals(this.categoria)) {
 			return false;
 		}
-		return calendario.agendarTurma(turma, data, horarioInicio, duracao);
+		return calendario.agendarTurma(turma, dia, horarioInicio, duracao);
 	}
 	
-	public void imprimeCalendario(LocalDate data) {
-		calendario.imprimeCalendario(data);
+	public void imprimeCalendario(DayOfWeek dia) {
+		calendario.imprimeCalendario(dia);
 	}
 	
-	public Map<LocalDate, List<Integer>> horariosTurma(Turma t) {
-		Map<LocalDate, List<Integer>> horariosTurma = new HashMap<>();
-		for (Entry<LocalDate, Cronograma> entry : calendario.getCalendario().entrySet()) {
+	public Map<DayOfWeek, List<Integer>> horariosTurma(Turma t) {
+		Map<DayOfWeek, List<Integer>> horariosTurma = new HashMap<>();
+		for (Entry<DayOfWeek, Cronograma> entry : calendario.getCalendario().entrySet()) {
 			List<Integer> horariosData = entry.getValue().horariosTurma(t);
 			if (horariosData.size() > 0) {
 				horariosTurma.put(entry.getKey(), horariosData);
@@ -63,12 +66,17 @@ public class Local {
 	}
 	
 	public void imprimirHorariosTurma(Turma t) {
-		System.out.println("Horarios:");
+		System.out.format("%s%nHorarios:%n", t);
 		
-		Map<LocalDate, List<Integer>> horarios = horariosTurma(t);
-		for (Entry<LocalDate, List<Integer>> entry : horarios.entrySet()) {
-			System.out.format("%s -> %s\n", entry.getKey(), entry.getValue());
+		Map<DayOfWeek, List<Integer>> horarios = horariosTurma(t);
+		for (Entry<DayOfWeek, List<Integer>> entry : horarios.entrySet()) {
+			System.out.format("%s -> %s%n", entry.getKey(), entry.getValue());
 		}
+		System.out.println();
+	}
+	
+	public void removerTurma(Turma t) {
+		calendario.removerTurma(t);
 	}
 	
 	public String toString() { 
@@ -78,6 +86,7 @@ public class Local {
 	public void exibir() {
 		System.out.format("ID: %d - Nome: %s - Categoria: %s\n", id, nome, categoria.getNome());
 	}
+
 	
 	public void editar(String nome) {
 		this.nome = nome;

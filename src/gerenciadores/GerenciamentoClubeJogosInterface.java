@@ -1,5 +1,8 @@
 package gerenciadores;
 
+import java.util.Scanner;
+
+import interfaces.GerenciaUsuarioInterface;
 
 public class GerenciamentoClubeJogosInterface {
 	
@@ -9,9 +12,54 @@ public class GerenciamentoClubeJogosInterface {
 	 * As opçőes săo escolhidas por meio de entrada do usuário.	 * 
 	 */
 	public void gerenciaUsuario() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		GerenciaUsuarioInterface gerenciador = new GerenciaUsuarioInterface();
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		exibeMenuGerenciarUsuario();
+		
+		boolean sair = false;
+		
+		while(scanner.hasNext()) {
+			int opcao = scanner.nextInt();
+			switch (opcao) {
+			case 1:
+				gerenciador.cadastrarUsuariosAntigos();
+				break;
+			case 2:
+				gerenciador.exportarUsuariosSistemaAntigo();
+				break;
+			case 3:
+				gerenciador.cadastrarNovoUsuario();
+				break;
+			case 6:
+				gerenciador.visualizarTodosUsuarios();
+				break;
+			case 0:
+				sair = true;
+				break;
+			}
+			if (sair) {
+				break;
+			}
+			exibeMenuGerenciarUsuario();
+		}
+	}
+	
+	public void exibeMenuGerenciarUsuario() {
+		System.out.println("Menu de Gerenciador de Usuario\n");
+		
+		System.out.println("1 - Cadastrar usuarios do sistema antigo");
+		System.out.println("2 - Exportar usuarios do sistema antigo");
+		System.out.println("3 - Cadastrar novo usuario");
+		System.out.println("4 - Cadastrar lista de usuarios");
+		System.out.println("5 - Visualizar informacoes de um usuario");
+		System.out.println("6 - Visualizar todos os usuarios");
+		System.out.println("7 - Editar informacoes de um usuario");
+		System.out.println("8 - Remover um usuario do sistema");
+		System.out.println("0 - Voltar ao menu principal\n");
+		
+		System.out.println("Selecione uma opcao:");
 	}
 	
 	/**
@@ -71,9 +119,44 @@ public class GerenciamentoClubeJogosInterface {
 		 * TODO implementar este método seguindo a descriçăo acima
 		 */	
 	}
+	
+	public void exibeMenuPrincipal() {
+		System.out.println("Menu:");
+		
+		System.out.println("1 - Gerenciar Usuarios");
+		System.out.println("0 - Sair do sistema\n");
+		System.out.println("Selecione uma opcao:");
+	}
 
 	
-
+	public static void main(String[] args) {
+		
+		GerenciamentoClubeJogosInterface clubeInterface = new GerenciamentoClubeJogosInterface();
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Bem vindo ao Clube de Jogos!\n");
+		
+		clubeInterface.exibeMenuPrincipal();
+		
+		
+		
+		while(scanner.hasNext()) {
+			int opcao = scanner.nextInt();
+			switch (opcao) {
+			case 1:
+				System.out.println();
+				clubeInterface.gerenciaUsuario();
+				break;
+			case 0:
+				System.out.println("FLW!");
+				System.exit(0);
+				break;
+			}
+			clubeInterface.exibeMenuPrincipal();
+		}
+		
+	}
 		
 		
 }

@@ -101,4 +101,8 @@ public class Usuario {
 	public void setTurma(Turma t) {
 		this.turmas.put(t.getId(), t);
 	}
+	
+	public void removerTurma(Turma turma) {
+		turmas.remove(turma.getId());
+	}
 }

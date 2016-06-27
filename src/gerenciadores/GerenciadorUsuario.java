@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Scanner;
+
 import clube.Clube;
 import usuario.Usuario;
 
@@ -83,12 +85,20 @@ public class GerenciadorUsuario <U>{
 	 * @return boolean - true se o usuário foi cadastrado ; false - caso contrário
 	 */
 	public boolean cadastrarNovoUsuario() {
-		// Deve vir como entrada do usuario na interface
-		String nome = "Gustavo";
-		int idade = 66;
-		String endereco = "Rua do Teste";
-		long telefone = 912345678;
+		Scanner scanner = new Scanner(System.in);
 		
+		System.out.println("Digite o nome:");
+		String nome = scanner.nextLine();
+		
+		System.out.println("Digite a idade:");
+		int idade = Integer.parseInt(scanner.nextLine());
+
+		System.out.println("Digite o endereco:");
+		String endereco = scanner.nextLine();
+		
+		System.out.println("Digite o telefone:");
+		long telefone = Long.parseLong(scanner.nextLine());
+	
 		boolean ok = clube.adicionarUsuario(nome, idade, endereco, telefone);
 		
 		if (!ok) {

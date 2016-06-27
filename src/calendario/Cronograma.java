@@ -8,10 +8,10 @@ import usuario.Usuario;
 public class Cronograma {
 	
 	// Horario inicial do cronograma (inclusivo)
-	private final int horarioInicial;
+	private final int horarioInicial = 8;
 	
 	// Horario final do cronograma (exclusivo)
-	private final int horarioFinal;
+	private final int horarioFinal = 22;
 
 	// Representa todos os horarios possiveis dentro
 	// de um cronograma, baseado em seu horario inicial e final
@@ -21,9 +21,7 @@ public class Cronograma {
 	// de tamanho fixo (horarioFinal - horarioInicial).
 	// Se um cronograma comeca as 8h e vai ate as 22h, logo teremos
 	// 22 - 8 = 14 posicoes (horarios) no array
-	public Cronograma(int horarioInicial, int horarioFinal) {
-		this.horarioInicial = horarioInicial;
-		this.horarioFinal = horarioFinal;
+	public Cronograma() {
 		this.agendamentos = new Turma[horarioFinal - horarioInicial];
 	}
 	
@@ -124,6 +122,14 @@ public class Cronograma {
 			
 		}
 		return turma;
+	}
+	
+	public void removerTurma(Turma turma) {
+		for (int i = 0; i < agendamentos.length; i++) {
+			if (agendamentos[i] != null && agendamentos[i].equals(turma)) {
+				agendamentos[i] = null;
+			}
+		}
 	}
 	
 	private void setTurma(Turma turma, int horario) {

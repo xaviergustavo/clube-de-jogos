@@ -1,5 +1,5 @@
 package turma;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +13,6 @@ public class Turma {
 	// Codigo identificador da turma
 	private int id;
 	
-	// Duracao em semanas
-	private int duracao;
-	
-	// Data de inicio da turma
-	private LocalDate inicio;
-	
 	// Atividade pertencente a turma
 	private Atividade atividade;
 	
@@ -28,26 +22,14 @@ public class Turma {
 	// Colecao de usuarios de uma turma
 	private Map<Integer, Usuario> usuarios;
 	
-	public Turma(int id, int duracao, LocalDate inicio, Atividade atividade,
-			Local local, List<Usuario> usuarios) {
-		this.id = id;
-		this.duracao = duracao;
-		this.inicio = inicio;
+	public Turma(Atividade atividade, Local local) {
 		this.atividade = atividade;
 		this.local = local;
 		this.usuarios = new HashMap<>();
-		for (Usuario u : usuarios) {
-			this.usuarios.put(u.getId(), u);
-			u.setTurma(this);
-		}
 	}
 	
 	public int quantidadeUsuarios() {
 		return usuarios.size();
-	}
-	
-	public LocalDate getFim() {
-		return inicio.plusWeeks(duracao);
 	}
 	
 	public boolean usuarioExiste(Usuario usuario) {
@@ -63,15 +45,7 @@ public class Turma {
 	public int getId() {
 		return id;
 	}
-
-	public int getDuracao() {
-		return duracao;
-	}
-
-	public LocalDate getInicio() {
-		return inicio;
-	}
-
+	
 	public Atividade getAtividade() {
 		return atividade;
 	}
@@ -80,8 +54,22 @@ public class Turma {
 		return local;
 	}
 
-	public Map<Integer, Usuario> getUsuarios() {
-		return usuarios;
+	public List<Usuario> getUsuarios() {
+		return new ArrayList<>(usuarios.values());
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public boolean podeAlterarLocal(Local novo) {
+		return !novo.getCategoria().equals(this.atividade.getModalidade().getCategoria());
+	}
+	
+	public void setLocal(Local local) {
+		if (podeAlterarLocal(local)) {
+			this.local = local;
+		}
 	}
 
 	@Override

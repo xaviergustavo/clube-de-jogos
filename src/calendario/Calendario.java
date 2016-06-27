@@ -4,41 +4,40 @@ import java.util.*;
 import turma.Turma;
 import usuario.Usuario;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 
 public class Calendario {
 	
-	private Map<LocalDate, Cronograma> calendario;
+	private Map<DayOfWeek, Cronograma> calendario;
 
 	public Calendario() {
 		this.calendario = new TreeMap<>();
+		for (DayOfWeek dia : DayOfWeek.values()) {
+			calendario.put(dia, new Cronograma());
+		}
 	}
 
-	public Map<LocalDate, Cronograma> getCalendario() {
+	public Map<DayOfWeek, Cronograma> getCalendario() {
 		return calendario;
 	}
 	
-	public int agendamentosNoDia(Usuario usuario, LocalDate data) {
-		if (calendario.get(data) == null) return 0;
-		return calendario.get(data).agendamentosNoDia(usuario);
+	public int agendamentosNoDia(Usuario usuario, DayOfWeek dia) {
+		if (calendario.get(dia) == null) return 0;
+		return calendario.get(dia).agendamentosNoDia(usuario);
 	}
 	
-	public boolean usuarioAgendado(Usuario usuario, LocalDate data, int horario) {
-		if (calendario.get(data) == null) return false;
-		return calendario.get(data).usuarioAgendado(usuario, horario);
+	public boolean usuarioAgendado(Usuario usuario, DayOfWeek dia, int horario) {
+		if (calendario.get(dia) == null) return false;
+		return calendario.get(dia).usuarioAgendado(usuario, horario);
 	}
 	
-	public boolean agendarTurma(Turma turma, LocalDate data, int inicio, int duracao) {
-		if (!calendario.containsKey(data)) {
-			Cronograma cronograma = new Cronograma(8, 22);
-			calendario.put(data, cronograma);
-		}
-		return calendario.get(data).agendar(turma, inicio, duracao);
+	public boolean agendarTurma(Turma turma, DayOfWeek dia, int inicio, int duracao) {
+		return calendario.get(dia).agendar(turma, inicio, duracao);
 	}
 	
-	public void imprimeCalendario(LocalDate data) {
-		Cronograma cronograma = calendario.get(data);
-		System.out.print(data + " -> ");
+	public void imprimeCalendario(DayOfWeek dia) {
+		Cronograma cronograma = calendario.get(dia);
+		System.out.print(dia + " -> ");
 		if (cronograma == null) {
 			System.out.println("[ ]");
 		} else {
@@ -46,8 +45,14 @@ public class Calendario {
 		}
 	}
 	
-	public void horariosTurmaNaData(LocalDate data, Turma t) {
-		calendario.get(data).horariosTurma(t);
+	public void horariosTurmaNadia(DayOfWeek dia, Turma t) {
+		calendario.get(dia).horariosTurma(t);
+	}
+	
+	public void removerTurma(Turma t) {
+		for (Cronograma cronograma : calendario.values()) {
+			cronograma.removerTurma(t);
+		}
 	}
 	
 }

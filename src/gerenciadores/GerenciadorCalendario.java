@@ -1,9 +1,21 @@
 package gerenciadores;
 
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.util.List;
 
+import atividade.Atividade;
+import clube.Clube;
+import local.Local;
+import turma.Turma;
+
 public class GerenciadorCalendario <A,T,L,U>{
+	
+	private Clube clube;
+	
+	public GerenciadorCalendario() {
+		this.clube = Clube.getInstance();
+	}
 	
 	/**
 	 * Cria uma turma no calendário em determinado horário, com uma atividade,
@@ -16,10 +28,24 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * false - se a turma năo puder ser alocada 
 	 */
 	public boolean adicionaTurma(T turma) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */
-		return false;
+		int idAtividade = 1;
+		int idLocal = 1;
+		DayOfWeek dia = DayOfWeek.of(6);
+		int horarioInicial = 18;
+		int horarioFinal = 20;
+		
+		Atividade atividade = clube.getAtividade(idAtividade);
+		if (atividade == null) {
+			return false;
+		}
+		
+		Local local = clube.getLocal(idLocal);
+		if (local == null) {
+			return false;
+		}
+		
+		Turma novaTurma = new Turma(atividade, local);
+		return clube.agendarTurma(novaTurma, dia, horarioInicial, horarioFinal - horarioInicial);
 	}
 	
 	/**
@@ -33,10 +59,21 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * false - se as turmas năo puderem ser alocadas 
 	 */
 	public boolean adicionaTurmasLocal(List<T> turmas, L local) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */
-		return false;
+		DayOfWeek dia = DayOfWeek.of(6);
+		int horarioInicial = 18;
+		int horarioFinal = 20;
+		
+		boolean ok = true;
+		Local l = (Local) local;
+		for (T t : turmas) {
+			Turma turma = (Turma) t;
+			turma.setLocal(l);
+			boolean sucesso = clube.agendarTurma(turma, dia, horarioInicial, horarioFinal - horarioInicial);
+			if (!sucesso) {
+				ok = false;
+			}
+		}
+		return ok;
 	}
 	
 	/**
@@ -44,9 +81,9 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * os horários e ocorręncias no calendário, como duraçăo, ocorręncia, quando termina, etc.
 	 */
 	public void exibeTurmasLocal(L local) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */
+		Local l = (Local) local;
+		
+		clube.exibirTurmas(l);
 	}
 	
 	/**
@@ -54,9 +91,13 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * @param atividade - atividade para exibiçăo de turmas
 	 */
 	public void exibeTurmasAtividade(A atividade) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */
+		Atividade a = (Atividade) atividade;
+		
+		List<Turma> turmas = clube.turmasPorAtividade(a);
+		
+		for (Turma t : turmas) {
+			System.out.println(t);
+		}
 	}
 	
 	/**
@@ -64,9 +105,7 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 *  atividades, número de participantes, horários, etc.
 	 */
 	public void exibeTodasTurmas() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */
+		clube.exibirTurmas();
 	}
 	
 	
@@ -102,10 +141,8 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * 
 	 */
 	public boolean removeTurma(T turma) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
-		return false;
+		Turma t = (Turma) turma;
+		return clube.removerTurma(t);
 	}
 	
 	
@@ -118,9 +155,12 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * @return true - se alterou local, false - caso contrário
 	 */
 	public boolean alteraLocal(T turma, L local){
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+//		Turma t = (Turma) turma;
+//		Local l = (Local) local;
+//		
+//		if (!t.podeAlterarLocal(l)) {
+//			return false;
+//		}
 		return false;
 	};
 	
