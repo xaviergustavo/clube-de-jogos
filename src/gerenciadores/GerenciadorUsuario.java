@@ -20,7 +20,6 @@ public class GerenciadorUsuario <U>{
 		this.clube = Clube.getInstance();
 	}
 	
-	
 	/**
 	 * Cadastra usuários baseado no formato do sistema antigo do clube de jogos.
 	 * Devem ser incorporados e adaptados os campos de acordo com sua implementaçăo 
@@ -114,10 +113,12 @@ public class GerenciadorUsuario <U>{
 		for (U u : usuarios) {
 			Usuario usuario = (Usuario)u;
 			boolean cadastrou = clube.adicionarUsuario(usuario.getNome(), usuario.getIdade(), usuario.getEndereco(), usuario.getTelefone());
-			if (!cadastrou) {
+			if (cadastrou) {
+				visualizarUsuario(usuario.getNome());
+			} else {
 				System.out.format("O usuario %s ja esta cadastrado no sistema\n", usuario.getNome());
 				ok = false;
-			}		
+			}
 		}
 		return ok;
 	}

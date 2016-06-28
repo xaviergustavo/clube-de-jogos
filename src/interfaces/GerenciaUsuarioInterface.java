@@ -2,6 +2,8 @@ package interfaces;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import gerenciadores.GerenciadorUsuario;
@@ -46,8 +48,64 @@ public class GerenciaUsuarioInterface {
 		}
 	}
 	
+	private void menuCadastrarListaUsuario() {
+		System.out.println("Deseja adicionar um usuario na lista:\n");
+		System.out.println("1 - Sim");
+		System.out.println("2 - Nao");
+	}
+	
 	public void cadastrarListaUsuarios() {
-		System.out.println("Em construcao\n");
+		List<Usuario> usuarios = new ArrayList<>();
+		int opcao = 2;
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Menu de cadastrar Lista de Usuarios:\n");
+		
+		menuCadastrarListaUsuario();
+		
+		boolean finalizou = false;
+		
+		while(scanner.hasNext()) {
+			
+			try {
+				opcao = Integer.parseInt(scanner.nextLine());
+			} catch (Exception e) {
+				e.printStackTrace();
+				opcao = 2;
+			}
+			switch (opcao) {
+			case 1:
+				System.out.println("Digite o nome:");
+				String nome = scanner.nextLine();
+				
+				System.out.println("Digite a idade:");
+				int idade = Integer.parseInt(scanner.nextLine());
+				
+				System.out.println("Digite o endereco:");
+				String endereco = scanner.nextLine();
+				
+				System.out.println("Digite o telefone:");
+				long telefone = Long.parseLong(scanner.nextLine());
+				
+				Usuario novo = new Usuario(nome, idade, endereco, telefone);
+				usuarios.add(novo);
+				menuCadastrarListaUsuario();
+				break;
+			case 2:
+				finalizou = true;
+				break;
+			}
+			if (finalizou) {
+				break;
+			}
+		}
+		if (usuarios.size() > 0) {
+			boolean sucesso = gerenciador.cadastrarNovosUsuarios(usuarios);
+			if (sucesso) {
+				System.out.println("Lista de usuarios cadastrada com sucesso!\n");
+			}
+		}
 	}
 	
 	private void menuVisualizarUsuario() {
@@ -61,7 +119,6 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void visualizarUsuario() {
-		
 		menuVisualizarUsuario();
 		
 		Scanner scanner = new Scanner(System.in);
@@ -132,7 +189,6 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void editarUsuario() {
-		
 		menuEditarUsuario();
 		
 		Scanner scanner = new Scanner(System.in);
@@ -199,13 +255,11 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void removerUsuario() {
-		
 		menuRemoverUsuario();
-		
-		Scanner scanner = new Scanner(System.in);
 		
 		boolean sair = false;
 		
+		Scanner scanner = new Scanner(System.in);
 		while(scanner.hasNext()) {
 			int opcao = scanner.nextInt();
 			switch (opcao) {
