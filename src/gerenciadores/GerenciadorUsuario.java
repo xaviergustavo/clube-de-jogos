@@ -36,18 +36,14 @@ public class GerenciadorUsuario <U>{
 		try {
 			conteudoArquivo = new String(Files.readAllBytes(arquivo));
 			String[] usuariosArquivo = conteudoArquivo.split("\\|");
-			
 			for (String usuarioArquivo : usuariosArquivo) {
 				String[] atributos = usuarioArquivo.split(",");
-				
 				String nome = atributos[0];
 				int idade = Integer.parseInt(atributos[1]);
 				String endereco = atributos[2];
 				long telefone = Long.parseLong(atributos[3]);
-				
-				boolean sucesso = clube.adicionarUsuario(nome, idade, endereco, telefone);
-				
-				if (!sucesso) {
+				boolean cadastrou = clube.adicionarUsuario(nome, idade, endereco, telefone);
+				if (!cadastrou) {
 					System.out.format("O usuario %s ja esta cadastrado no sistema\n", nome);
 					ok = false;
 				}
@@ -67,11 +63,8 @@ public class GerenciadorUsuario <U>{
 	 */
 	public void exportaUsuariosSistemaAntigo() {
 		for (Usuario usuario : clube.getUsuarios()) {
-			
 			try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("usuarios.dat", true)))) {
-			  
 				out.format("%s|", usuario.formatoSistemaAntigo());
-			  
 			} catch (IOException e){
 				e.printStackTrace();
 			}
@@ -92,20 +85,20 @@ public class GerenciadorUsuario <U>{
 		
 		System.out.println("Digite a idade:");
 		int idade = Integer.parseInt(scanner.nextLine());
-
+		
 		System.out.println("Digite o endereco:");
 		String endereco = scanner.nextLine();
 		
 		System.out.println("Digite o telefone:");
 		long telefone = Long.parseLong(scanner.nextLine());
-	
-		boolean ok = clube.adicionarUsuario(nome, idade, endereco, telefone);
-		
-		if (!ok) {
+
+		boolean cadastrou = clube.adicionarUsuario(nome, idade, endereco, telefone);
+		if (cadastrou) {
+			visualizarUsuario(nome);
+		} else {
 			System.out.format("O usuario %s ja esta cadastrado no sistema\n", nome);
 		}
-		
-		return ok;
+		return cadastrou;
 	}
 	
 	/**
@@ -118,14 +111,10 @@ public class GerenciadorUsuario <U>{
 	 */
 	public boolean cadastrarNovosUsuarios(List<U> usuarios) {
 		boolean ok = true;
-		
 		for (U u : usuarios) {
-			
 			Usuario usuario = (Usuario)u;
-			
-			boolean sucesso = clube.adicionarUsuario(usuario.getNome(), usuario.getIdade(), usuario.getEndereco(), usuario.getTelefone());
-			
-			if (!sucesso) {
+			boolean cadastrou = clube.adicionarUsuario(usuario.getNome(), usuario.getIdade(), usuario.getEndereco(), usuario.getTelefone());
+			if (!cadastrou) {
 				System.out.format("O usuario %s ja esta cadastrado no sistema\n", usuario.getNome());
 				ok = false;
 			}		
@@ -141,12 +130,12 @@ public class GerenciadorUsuario <U>{
 	 */
 	public void visualizarUsuario(String nomeUsuario) {
 		Usuario u = clube.getUsuario(nomeUsuario);
-		
 		if (u == null) {
-			System.out.format("O usuario %s nao foi encontrado", nomeUsuario);
+			System.out.format("O usuario %s nao foi encontrado%n%n", nomeUsuario);
 			return;
 		}
 		
+		System.out.format("Matricula: %d%n", u.getId());
 		System.out.format("Nome: %s\n", u.getNome());
 		System.out.format("Idade: %d\n", u.getIdade());
 		System.out.format("Endereco: %s\n", u.getEndereco());
@@ -163,7 +152,6 @@ public class GerenciadorUsuario <U>{
 	 */
 	public void visualizarUsuario(int nMatricula) {
 		Usuario u = clube.getUsuario(nMatricula);
-		
 		if (u == null) {
 			System.out.format("O usuario com a matricula %d nao foi encontrado", nMatricula);
 			return;
@@ -182,7 +170,6 @@ public class GerenciadorUsuario <U>{
 		for (Usuario u : usuarios) {
 			visualizarUsuario(u.getNome());
 		}
-		
 		return clube.quantidadeUsuarios();
 	}
 	
@@ -191,14 +178,31 @@ public class GerenciadorUsuario <U>{
 	 * @param nomeUsuario - nome do usuário a ser editado
 	 *  
 	 */
-	public void editarUsuario(String nomeUsuario) {			
-		// Deve vir como entrada do usuario na interface
-		String novoNome = "Sadrac";
-		int novaIdade = 66;
-		String novoEndereco = "Rua das Orquideas";
-		long novoTelefone = 912345678;
+	public void editarUsuario(String nomeUsuario) {
+		Usuario usuario = clube.getUsuario(nomeUsuario);
+		if (usuario == null) {
+			System.out.format("Usuario %s nao encontrado%n%n", nomeUsuario);
+			return;
+		}
+		visualizarUsuario(nomeUsuario);
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o nome:");
+		String novoNome = scanner.nextLine();
+		
+		System.out.println("Digite a idade:");
+		int novaIdade = Integer.parseInt(scanner.nextLine());
+
+		System.out.println("Digite o endereco:");
+		String novoEndereco = scanner.nextLine();
+		
+		System.out.println("Digite o telefone:");
+		long novoTelefone = Long.parseLong(scanner.nextLine());
 		
 		clube.editarUsuario(nomeUsuario, novoNome, novaIdade, novoEndereco, novoTelefone);
+		visualizarUsuario(novoNome);
+		System.out.println("Usuario editado com sucesso!\n");
 	}
 	
 	/**
@@ -208,13 +212,32 @@ public class GerenciadorUsuario <U>{
 	 * 
 	 */
 	public void editarUsuario(int nMatricula) {
-		// Deve vir como entrada do usuario na interface
-		String novoNome = "Barak";
-		int novaIdade = 54;
-		String novoEndereco = "Rua das Tulipas";
-		long novoTelefone = 912345678;
+		Usuario usuario = clube.getUsuario(nMatricula);
+		if (usuario == null) {
+			System.out.format("Usuario %s nao encontrado%n%n", nMatricula);
+			return;
+		}
+		
+		visualizarUsuario(nMatricula);
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o nome:");
+		String novoNome = scanner.nextLine();
+		
+		System.out.println("Digite a idade:");
+		int novaIdade = Integer.parseInt(scanner.nextLine());
+
+		System.out.println("Digite o endereco:");
+		String novoEndereco = scanner.nextLine();
+		
+		System.out.println("Digite o telefone:");
+		long novoTelefone = Long.parseLong(scanner.nextLine());
 		
 		clube.editarUsuario(nMatricula, novoNome, novaIdade, novoEndereco, novoTelefone);
+	
+		visualizarUsuario(nMatricula);
+		System.out.println("Usuario editado com sucesso!\n");
 	}
 	
 	/**
@@ -223,8 +246,30 @@ public class GerenciadorUsuario <U>{
 	 * @param nomeUsuario - nome usuário a ser removido
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
-	public boolean  removerUsuario(String nomeUsuario) {
-		return clube.removerUsuario(nomeUsuario);
+	public boolean removerUsuario(String nomeUsuario) {
+		Usuario usuario = clube.getUsuario(nomeUsuario);
+		if (usuario == null) {
+			System.out.format("Usuario %s nao encontrado%n%n", nomeUsuario);
+			return false;
+		}
+		
+		visualizarUsuario(nomeUsuario);
+		
+		System.out.println("Deseja remover o usuario:\n");
+		System.out.println("1 - Sim");
+		System.out.println("2 - Nao");
+		
+		Scanner scanner = new Scanner(System.in);
+		int opcao = 2;
+		try {
+			opcao = Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			opcao = 2;
+		}
+		if (opcao == 1) {
+			return clube.removerUsuario(nomeUsuario);
+		}
+		return false;
 	}
 	
 	/**
@@ -234,7 +279,28 @@ public class GerenciadorUsuario <U>{
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerUsuario(int nMatricula) {
-		return clube.removerUsuario(nMatricula);
+		Usuario usuario = clube.getUsuario(nMatricula);
+		if (usuario == null) {
+			System.out.format("Usuario %s nao encontrado%n%n", nMatricula);
+			return false;
+		}
+		visualizarUsuario(nMatricula);
+		
+		System.out.println("Deseja remover o usuario:\n");
+		System.out.println("1 - Sim");
+		System.out.println("2 - Nao");
+		
+		Scanner scanner = new Scanner(System.in);
+		int opcao = 2;
+		try {
+			opcao = Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			opcao = 2;
+		}
+		if (opcao == 1) {
+			return clube.removerUsuario(nMatricula);
+		}
+		return false;
 	}
 	
 }

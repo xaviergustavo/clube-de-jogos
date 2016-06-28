@@ -173,7 +173,6 @@ public class Clube {
 	}
 	
 	public boolean editarUsuario(String nomeUsuario, String novoNome, int novaIdade, String novoEndereco, long novoTelefone) {
-		// Verificar se local com o novo nome ja existe
 		Usuario novoUsuario = getUsuario(novoNome);
 		if (novoUsuario != null) {
 			return false;

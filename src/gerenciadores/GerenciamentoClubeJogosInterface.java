@@ -32,11 +32,26 @@ public class GerenciamentoClubeJogosInterface {
 			case 3:
 				gerenciador.cadastrarNovoUsuario();
 				break;
+			case 4:
+				gerenciador.cadastrarListaUsuarios();
+				break;
+			case 5:
+				gerenciador.visualizarUsuario();
+				break;
 			case 6:
 				gerenciador.visualizarTodosUsuarios();
 				break;
+			case 7:
+				gerenciador.editarUsuario();
+				break;
+			case 8:
+				gerenciador.removerUsuario();
+				break;
 			case 0:
 				sair = true;
+				break;
+			default:
+				System.out.println("Opcao invalida\n");
 				break;
 			}
 			if (sair) {
@@ -139,8 +154,6 @@ public class GerenciamentoClubeJogosInterface {
 		
 		clubeInterface.exibeMenuPrincipal();
 		
-		
-		
 		while(scanner.hasNext()) {
 			int opcao = scanner.nextInt();
 			switch (opcao) {
@@ -149,7 +162,7 @@ public class GerenciamentoClubeJogosInterface {
 				clubeInterface.gerenciaUsuario();
 				break;
 			case 0:
-				System.out.println("FLW!");
+				System.out.println("Ate logo!");
 				System.exit(0);
 				break;
 			}
