@@ -7,44 +7,54 @@ import java.util.List;
 import java.util.Scanner;
 
 import gerenciadores.GerenciadorUsuario;
+import logger.ClubeLogger;
 import usuario.Usuario;
 
 public class GerenciaUsuarioInterface {
 	
 	private GerenciadorUsuario<Usuario> gerenciador;
 	
+	private ClubeLogger log;
+	
 	public GerenciaUsuarioInterface() {
 		this.gerenciador = new GerenciadorUsuario<>();
+		this.log = ClubeLogger.getInstance();
 	}
 	
 	public void cadastrarUsuariosAntigos() {
+		log.registrar("Cadastrando usuarios do sistema antigo...");
+		
 		Scanner scanner = new Scanner(System.in);
 		String caminho = "";
 		while (caminho.equals("")) {
 			System.out.println("Digite o caminho do arquivo que contem os usuarios do sistema antigo");
 			caminho = scanner.nextLine();
 		}
+		
 		Path arquivo = Paths.get(caminho);
 		boolean importou = gerenciador.cadastraUsuariosAntigos(arquivo);
-		if (importou) {
+		
+		if (importou) {		
 			gerenciador.visualizarTodosUsuarios();
-			System.out.println("Usuarios cadastrados com sucesso!\n");
+			log.registrarComSaida("Usuarios do sistema antigo cadastrados com sucesso!");
 		} else {
-			System.out.println("Houve algum erro na importacao\n");
+			log.registrarComSaida("Nao foi possivel cadastrar os usuarios do sistema antigo");
 		}
 	}
 	
 	public void exportarUsuariosSistemaAntigo() {
+		log.registrar("Exportando usuarios para o sistema antigo...");
 		gerenciador.exportaUsuariosSistemaAntigo();
-		System.out.println("Usuarios exportados com sucesso!\n");
+		log.registrarComSaida("Usuarios exportados com sucesso");
 	}
 	
 	public void cadastrarNovoUsuario() {
+		log.registrar("Cadastrando novo usuario...");
 		boolean cadastrou = gerenciador.cadastrarNovoUsuario();
 		if (cadastrou) {
-			System.out.println("Usuario cadastrado com sucesso!\n");
+			log.registrarComSaida("Usuario cadastrado com sucesso");
 		} else {
-			System.out.println("Nao foi possivel cadastrar o usuario!\n");
+			log.registrarComSaida("Nao foi possivel cadastrar o usuario!");
 		}
 	}
 	
@@ -55,6 +65,8 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void cadastrarListaUsuarios() {
+		log.registrar("Cadastrando lista de usuarios...");
+		
 		List<Usuario> usuarios = new ArrayList<>();
 		int opcao = 2;
 		
@@ -103,7 +115,9 @@ public class GerenciaUsuarioInterface {
 		if (usuarios.size() > 0) {
 			boolean sucesso = gerenciador.cadastrarNovosUsuarios(usuarios);
 			if (sucesso) {
-				System.out.println("Lista de usuarios cadastrada com sucesso!\n");
+				log.registrarComSaida("Lista de usuarios cadastrada com sucesso!");
+			} else {
+				log.registrarComSaida("Nao foi possivel cadastrar lista de usuarios");
 			}
 		}
 	}
@@ -119,6 +133,7 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void visualizarUsuario() {
+		
 		menuVisualizarUsuario();
 		
 		Scanner scanner = new Scanner(System.in);
@@ -156,6 +171,7 @@ public class GerenciaUsuarioInterface {
 				System.out.println("Nome de usuario invalido\n");
 			}
 		}
+		log.registrar("Visualizando usuario por nome: " + nomeUsuario);
 		gerenciador.visualizarUsuario(nomeUsuario);
 	}
 	
@@ -171,10 +187,12 @@ public class GerenciaUsuarioInterface {
 				matricula = 0;
 			}
 		}
+		log.registrar("Visualizando usuario por matricula: " + matricula);
 		gerenciador.visualizarUsuario(matricula);
 	}
 	
 	public void visualizarTodosUsuarios() {
+		log.registrar("Visualizando todos os usuarios...");
 		System.out.format("Quantidade de usuarios: %s%n%n", gerenciador.visualizarTodosUsuarios());
 	}
 	
@@ -226,6 +244,7 @@ public class GerenciaUsuarioInterface {
 				System.out.println("Nome de usuario invalido\n");
 			}
 		}
+		log.registrar("Editando usuario por nome: " + nomeUsuario);
 		gerenciador.editarUsuario(nomeUsuario);
 	}
 	
@@ -241,6 +260,7 @@ public class GerenciaUsuarioInterface {
 				matricula = 0;
 			}
 		}
+		log.registrar("Editando usuario por matricula: " + matricula);
 		gerenciador.editarUsuario(matricula);
 	}
 	
@@ -282,8 +302,10 @@ public class GerenciaUsuarioInterface {
 	}
 	
 	public void removerUsuarioNome() {
+		
 		Scanner scanner = new Scanner(System.in);
 		String nomeUsuario = "";
+		
 		while (nomeUsuario.equals("")) {
 			System.out.println("Digite o nome do usuario:");
 			nomeUsuario = scanner.nextLine();
@@ -291,17 +313,22 @@ public class GerenciaUsuarioInterface {
 				System.out.println("Nome de usuario invalido\n");
 			}
 		}
+		
+		log.registrarComSaida("Removendo usuario por nome: " + nomeUsuario);
+		
 		boolean removido = gerenciador.removerUsuario(nomeUsuario);
 		if (removido) {
-			System.out.format("Usuario %s removido com sucesso!%n%n", nomeUsuario);
+			log.registrarComSaida("Usuario " + nomeUsuario + " removido com sucesso!");
 		} else {
-			System.out.format("Usuario %s nao foi removido%n%n", nomeUsuario);
+			log.registrarComSaida("Usuario " + nomeUsuario + " nao foi removido");
 		}
+		
 	}
 	
 	public void removerUsuarioMatricula() {
 		Scanner scanner = new Scanner(System.in);
 		int matricula = 0;
+		
 		while (matricula == 0) {
 			System.out.println("Digite a matricula do usuario:");
 			try {
@@ -311,11 +338,14 @@ public class GerenciaUsuarioInterface {
 				matricula = 0;
 			}
 		}
+		
+		log.registrarComSaida("Removendo usuario por matricula: " + matricula);
+		
 		boolean removido = gerenciador.removerUsuario(matricula);
 		if (removido) {
-			System.out.format("Usuario %s removido com sucesso!%n%n", matricula);
+			log.registrarComSaida("Usuario " + matricula + " removido com sucesso!");
 		} else {
-			System.out.format("Usuario %s nao foi removido%n%n", matricula);
+			log.registrarComSaida("Usuario " + matricula + " nao foi removido");
 		}
 	}
 }

@@ -10,14 +10,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import clube.Clube;
+import logger.ClubeLogger;
 import usuario.Usuario;
 
 public class GerenciadorUsuario <U>{
 
 	private Clube clube;
 	
+	private ClubeLogger log;
+	
 	public GerenciadorUsuario() {
 		this.clube = Clube.getInstance();
+		this.log = ClubeLogger.getInstance();
 	}
 	
 	/**
@@ -132,7 +136,7 @@ public class GerenciadorUsuario <U>{
 	public void visualizarUsuario(String nomeUsuario) {
 		Usuario u = clube.getUsuario(nomeUsuario);
 		if (u == null) {
-			System.out.format("O usuario %s nao foi encontrado%n%n", nomeUsuario);
+			log.registrarComSaida("O usuario " + nomeUsuario +  " nao foi encontrado");
 			return;
 		}
 		
@@ -154,10 +158,9 @@ public class GerenciadorUsuario <U>{
 	public void visualizarUsuario(int nMatricula) {
 		Usuario u = clube.getUsuario(nMatricula);
 		if (u == null) {
-			System.out.format("O usuario com a matricula %d nao foi encontrado", nMatricula);
+			log.registrarComSaida("O usuario com a matricula " + nMatricula + " nao foi encontrado");
 			return;
 		}
-		
 		visualizarUsuario(u.getNome());
 	}
 	
@@ -182,7 +185,7 @@ public class GerenciadorUsuario <U>{
 	public void editarUsuario(String nomeUsuario) {
 		Usuario usuario = clube.getUsuario(nomeUsuario);
 		if (usuario == null) {
-			System.out.format("Usuario %s nao encontrado%n%n", nomeUsuario);
+			log.registrarComSaida("Usuario " + nomeUsuario + " nao encontrado");
 			return;
 		}
 		visualizarUsuario(nomeUsuario);
@@ -203,7 +206,7 @@ public class GerenciadorUsuario <U>{
 		
 		clube.editarUsuario(nomeUsuario, novoNome, novaIdade, novoEndereco, novoTelefone);
 		visualizarUsuario(novoNome);
-		System.out.println("Usuario editado com sucesso!\n");
+		log.registrarComSaida("Usuario editado com sucesso!");
 	}
 	
 	/**
@@ -215,7 +218,7 @@ public class GerenciadorUsuario <U>{
 	public void editarUsuario(int nMatricula) {
 		Usuario usuario = clube.getUsuario(nMatricula);
 		if (usuario == null) {
-			System.out.format("Usuario %s nao encontrado%n%n", nMatricula);
+			System.out.format("Usuario " + nMatricula + " nao encontrado%n%n");
 			return;
 		}
 		
@@ -238,7 +241,7 @@ public class GerenciadorUsuario <U>{
 		clube.editarUsuario(nMatricula, novoNome, novaIdade, novoEndereco, novoTelefone);
 	
 		visualizarUsuario(nMatricula);
-		System.out.println("Usuario editado com sucesso!\n");
+		log.registrarComSaida("Usuario editado com sucesso!");
 	}
 	
 	/**
@@ -250,7 +253,7 @@ public class GerenciadorUsuario <U>{
 	public boolean removerUsuario(String nomeUsuario) {
 		Usuario usuario = clube.getUsuario(nomeUsuario);
 		if (usuario == null) {
-			System.out.format("Usuario %s nao encontrado%n%n", nomeUsuario);
+			log.registrarComSaida("Usuario " + nomeUsuario + " nao encontrado");
 			return false;
 		}
 		
@@ -282,7 +285,7 @@ public class GerenciadorUsuario <U>{
 	public boolean removerUsuario(int nMatricula) {
 		Usuario usuario = clube.getUsuario(nMatricula);
 		if (usuario == null) {
-			System.out.format("Usuario %s nao encontrado%n%n", nMatricula);
+			log.registrarComSaida("Usuario " + nMatricula + " nao encontrado");
 			return false;
 		}
 		visualizarUsuario(nMatricula);

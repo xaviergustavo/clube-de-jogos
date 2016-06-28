@@ -3,6 +3,7 @@ package gerenciadores;
 import java.util.Scanner;
 
 import interfaces.GerenciaUsuarioInterface;
+import logger.ClubeLogger;
 
 public class GerenciamentoClubeJogosInterface {
 	
@@ -118,9 +119,9 @@ public class GerenciamentoClubeJogosInterface {
 	 *  exista uma instância única de log no sistema.
 	 */
 	public void exibeLog() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		ClubeLogger log = ClubeLogger.getInstance();
+		log.registrar("Arquivo de log exibido");
+		System.out.println(log.conteudo());
 	}
 	
 	
@@ -139,6 +140,10 @@ public class GerenciamentoClubeJogosInterface {
 		System.out.println("Menu:");
 		
 		System.out.println("1 - Gerenciar Usuarios");
+		System.out.println("2 - Gerenciar Atividades");
+		System.out.println("3 - Gerenciar Locais");
+		System.out.println("4 - Gerenciar Calendario");
+		System.out.println("5 - Exibir Log");
 		System.out.println("0 - Sair do sistema\n");
 		System.out.println("Selecione uma opcao:");
 	}
@@ -160,6 +165,9 @@ public class GerenciamentoClubeJogosInterface {
 			case 1:
 				System.out.println();
 				clubeInterface.gerenciaUsuario();
+				break;
+			case 5:
+				clubeInterface.exibeLog();
 				break;
 			case 0:
 				System.out.println("Ate logo!");
