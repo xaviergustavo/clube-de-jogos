@@ -1,5 +1,12 @@
 package clube;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,11 +17,12 @@ import java.util.Map.Entry;
 import atividade.Atividade;
 import local.CategoriaLocal;
 import local.Local;
+import logger.ClubeLogger;
 import modalidade.Modalidade;
 import turma.Turma;
 import usuario.Usuario;
 
-public class Clube {
+public class Clube implements Serializable {
 	
 	private static Clube instance;
 	
@@ -62,23 +70,30 @@ public class Clube {
 	}
 	
 	private void inicializarClube() {
-		this.fechado = DayOfWeek.SUNDAY;
-		this.usuarios = new HashMap<>();
-		this.atividades = new HashMap<>();
-		this.turmas = new HashMap<>();
-		this.inicializarCategorias();
-		this.inicializarLocais();
-		this.inicializarModalidades();
+		fechado = DayOfWeek.SUNDAY;
+		usuarios = new HashMap<>();
+		atividades = new HashMap<>();
+		turmas = new HashMap<>();
+		categorias = new HashMap<>();
+		locais = new HashMap<>();
+		modalidades = new HashMap<>();
+		// Verifica se o arquivo com o estado do sistema existe.
+		// Caso nao exista, carrega os valores padrao do sistema.
+		if (new File("clube-de-jogos.data").isFile()) {
+			recuperarEstadoSistema();
+		} else {
+			this.inicializarCategorias();
+			this.inicializarLocais();
+			this.inicializarModalidades();
+		}
 	}
 	
 	private void inicializarCategorias() {
-		this.categorias = new HashMap<>();
-		this.categorias.put(1, new CategoriaLocal(1, "Quadra"));
-		this.categorias.put(2, new CategoriaLocal(2, "Sala"));
+		categorias.put(1, new CategoriaLocal(1, "Quadra"));
+		categorias.put(2, new CategoriaLocal(2, "Sala"));
 	}
 	
 	private void inicializarLocais() {
-		locais = new HashMap<>();
 		adicionarLocal(new Local("Quadra 1", this.categorias.get(1)));
 		adicionarLocal(new Local("Quadra 2", this.categorias.get(1)));
 		adicionarLocal(new Local("Sala 1", this.categorias.get(2)));
@@ -86,10 +101,25 @@ public class Clube {
 	}
 	
 	private void inicializarModalidades() {
-		this.modalidades = new HashMap<>();
-		this.modalidades.put(1, new Modalidade(1, "Digital", this.categorias.get(2)));
-		this.modalidades.put(2, new Modalidade(2, "Analogico", this.categorias.get(2)));
-		this.modalidades.put(3, new Modalidade(3, "Fisico", this.categorias.get(1)));
+		modalidades.put(1, new Modalidade(1, "Digital", this.categorias.get(2)));
+		modalidades.put(2, new Modalidade(2, "Analogico", this.categorias.get(2)));
+		modalidades.put(3, new Modalidade(3, "Fisico", this.categorias.get(1)));
+	}
+	
+	public void salvarEstadoSistema() {
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("clube-de-jogos.data"))) {
+			out.writeObject(instance);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void recuperarEstadoSistema() {
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("clube-de-jogos.data"))) {
+			instance = (Clube) in.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// Agendamentos

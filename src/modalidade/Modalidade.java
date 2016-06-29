@@ -1,11 +1,13 @@
 package modalidade;
 
+import java.io.Serializable;
+
 import local.CategoriaLocal;
 
 // Existem tres modalidades diferentes de jogos: digitais, analogicos e fisicos.
 // Todas as atividades serao categorizadas por um desses tipos.
 // Podemos citar como exemplo de cada modalidade as atividades: videogame, xadrez e volei.
-public class Modalidade {
+public class Modalidade implements Serializable {
 	
 	private int id;
 	

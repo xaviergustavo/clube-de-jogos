@@ -1,11 +1,12 @@
 package calendario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import turma.Turma;
 import usuario.Usuario;
 
-public class Cronograma {
+public class Cronograma implements Serializable {
 	
 	// Horario inicial do cronograma (inclusivo)
 	private final int horarioInicial = 8;

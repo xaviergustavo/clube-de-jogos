@@ -1,4 +1,5 @@
 package turma;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import atividade.Atividade;
 import local.Local;
 import usuario.Usuario;
 
-public class Turma {
+public class Turma implements Serializable {
 	
 	// Codigo identificador da turma
 	private int id;

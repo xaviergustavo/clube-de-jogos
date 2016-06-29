@@ -1,4 +1,5 @@
 package local;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import calendario.Cronograma;
 import turma.Turma;
 import usuario.Usuario;
 
-public class Local {
+public class Local implements Serializable {
 	
 	private int id;
 	

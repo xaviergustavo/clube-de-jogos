@@ -4,9 +4,10 @@ import java.util.*;
 import turma.Turma;
 import usuario.Usuario;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 
-public class Calendario {
+public class Calendario implements Serializable {
 	
 	private Map<DayOfWeek, Cronograma> calendario;
 

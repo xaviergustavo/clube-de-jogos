@@ -1,8 +1,10 @@
 package atividade;
 
+import java.io.Serializable;
+
 import modalidade.Modalidade;
 
-public class Atividade {
+public class Atividade implements Serializable{
 
 	private int id;
 	

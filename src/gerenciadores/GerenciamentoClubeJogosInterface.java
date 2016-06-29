@@ -3,6 +3,7 @@ package gerenciadores;
 import java.util.Scanner;
 
 import interfaces.GerenciaUsuarioInterface;
+import interfaces.GerenciadorEstadoSistemaInterface;
 import logger.ClubeLogger;
 
 public class GerenciamentoClubeJogosInterface {
@@ -131,9 +132,8 @@ public class GerenciamentoClubeJogosInterface {
 	 * dados apenas se esta opçăo for escolhida. Esta operaçăo também deve ser registrada no log. 
 	 */
 	public void salvarEstadoSistema() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		GerenciadorEstadoSistemaInterface gerenciador = new GerenciadorEstadoSistemaInterface();
+		gerenciador.salvarEstadoSistema();
 	}
 	
 	public void exibeMenuPrincipal() {
@@ -144,6 +144,7 @@ public class GerenciamentoClubeJogosInterface {
 		System.out.println("3 - Gerenciar Locais");
 		System.out.println("4 - Gerenciar Calendario");
 		System.out.println("5 - Exibir Log");
+		System.out.println("6 - Salvar Estado do Sistema");
 		System.out.println("0 - Sair do sistema\n");
 		System.out.println("Selecione uma opcao:");
 	}
@@ -163,11 +164,22 @@ public class GerenciamentoClubeJogosInterface {
 			int opcao = scanner.nextInt();
 			switch (opcao) {
 			case 1:
-				System.out.println();
 				clubeInterface.gerenciaUsuario();
+				break;
+			case 2:
+				clubeInterface.gerenciaAtividade();
+				break;
+			case 3:
+				clubeInterface.gerenciaLocal();
+				break;
+			case 4:
+				clubeInterface.gerenciaCalendario();
 				break;
 			case 5:
 				clubeInterface.exibeLog();
+				break;
+			case 6:
+				clubeInterface.salvarEstadoSistema();
 				break;
 			case 0:
 				System.out.println("Ate logo!");
