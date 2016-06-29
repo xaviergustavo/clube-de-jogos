@@ -6,11 +6,11 @@ import java.util.Scanner;
 import clube.Clube;
 import logger.ClubeLogger;
 
-public class GerenciadorEstadoSistemaInterface {
+public class GerenciaEstadoSistemaInterface {
 
 	private ClubeLogger log;
 	
-	public GerenciadorEstadoSistemaInterface() {
+	public GerenciaEstadoSistemaInterface() {
 		this.log = ClubeLogger.getInstance();
 	}
 	

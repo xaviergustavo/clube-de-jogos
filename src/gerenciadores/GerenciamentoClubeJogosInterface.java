@@ -3,7 +3,7 @@ package gerenciadores;
 import java.util.Scanner;
 
 import interfaces.GerenciaUsuarioInterface;
-import interfaces.GerenciadorEstadoSistemaInterface;
+import interfaces.GerenciaEstadoSistemaInterface;
 import logger.ClubeLogger;
 
 public class GerenciamentoClubeJogosInterface {
@@ -85,9 +85,7 @@ public class GerenciamentoClubeJogosInterface {
 	 * As opçőes săo escolhidas por meio de entrada do usuário.	 * 
 	 */
 	public void gerenciaAtividade() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		System.out.println("Em Construcao!");
 	}
 	
 	/**
@@ -96,9 +94,7 @@ public class GerenciamentoClubeJogosInterface {
 	 * As opçőes săo escolhidas por meio de entrada do usuário.	 * 
 	 */
 	public void gerenciaLocal() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		System.out.println("Em Construcao!");
 	}
 	
 	/**
@@ -107,9 +103,7 @@ public class GerenciamentoClubeJogosInterface {
 	 * As opçőes săo escolhidas por meio de entrada do usuário.	 * 
 	 */
 	public void gerenciaCalendario() {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
+		System.out.println("Em Construcao!");
 	}
 	
 	/**
@@ -132,7 +126,7 @@ public class GerenciamentoClubeJogosInterface {
 	 * dados apenas se esta opçăo for escolhida. Esta operaçăo também deve ser registrada no log. 
 	 */
 	public void salvarEstadoSistema() {
-		GerenciadorEstadoSistemaInterface gerenciador = new GerenciadorEstadoSistemaInterface();
+		GerenciaEstadoSistemaInterface gerenciador = new GerenciaEstadoSistemaInterface();
 		gerenciador.salvarEstadoSistema();
 	}
 	
