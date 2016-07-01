@@ -202,7 +202,7 @@ public class Clube implements Serializable {
 		return removido != null;
 	}
 	
-	public boolean editarUsuario(String nomeUsuario, String novoNome, int novaIdade, String novoEndereco, long novoTelefone) {
+	public boolean editarUsuario(String nomeUsuario, String novoNome, int novaIdade, String novoSexo, String novoEndereco, long novoTelefone) {
 		Usuario novoUsuario = getUsuario(novoNome);
 		if (novoUsuario != null) {
 			return false;
@@ -213,12 +213,12 @@ public class Clube implements Serializable {
 			return false;
 		}
 		
-		usuario.editar(novoNome, novaIdade, novoEndereco, novoTelefone);
+		usuario.editar(novoNome, novaIdade, novoSexo, novoEndereco, novoTelefone);
 		
 		return true;
 	}
 	
-	public boolean editarUsuario(int id, String novoNome, int novaIdade, String novoEndereco, long novoTelefone) {
+	public boolean editarUsuario(int id, String novoNome, int novaIdade, String novoSexo, String novoEndereco, long novoTelefone) {
 		// Verificar se local com o novo nome ja existe
 		Usuario novoUsuario = getUsuario(novoNome);
 		if (novoUsuario != null) {
@@ -230,7 +230,7 @@ public class Clube implements Serializable {
 			return false;
 		}
 		
-		usuario.editar(novoNome, novaIdade, novoEndereco, novoTelefone);
+		usuario.editar(novoNome, novaIdade, novoSexo, novoEndereco, novoTelefone);
 		
 		return true;
 	}
@@ -257,11 +257,11 @@ public class Clube implements Serializable {
 		return new ArrayList<Usuario>(usuarios.values());
 	}
 	
-	public boolean adicionarUsuario(String nome, int idade, String endereco, long telefone) {
+	public boolean adicionarUsuario(String nome, int idade, String sexo, String endereco, long telefone) {
 		if (usuarioExiste(nome))  {
 			return false;
 		}
-		Usuario novo = new Usuario(nome, idade, endereco, telefone);
+		Usuario novo = new Usuario(nome, idade, sexo, endereco, telefone);
 		novo.setId(usuarios.size() + 1);
 		usuarios.put(novo.getId(), novo);
 		return true;

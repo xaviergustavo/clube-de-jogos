@@ -1,12 +1,15 @@
 package gerenciadores;
 
 import java.util.List;
+import java.util.Scanner;
 
 import clube.Clube;
 import local.Local;
+import logger.ClubeLogger;
 
 public class GerenciadorLocal<L> {
 	
+	private ClubeLogger log;
 	private Clube clube;
 	
 	public GerenciadorLocal() {
@@ -22,11 +25,28 @@ public class GerenciadorLocal<L> {
 	 * @return boolean - true se o local foi cadastrado ; false - caso contrário
 	 */
 	public boolean cadastrarNovoLocal() {
+		Scanner scanner = new Scanner (System.in);
 		
-		// Deve vir como entrada do usuario na interface
-		Local local = new Local("Quadra 1", clube.getCategoria(1));
+		System.out.println ("Cadastro de novo local.");
+		System.out.println ();
+		System.out.format ("Os campos que devem preenchidos s�o:\n- Nome do Local\n- Categoria\n");
 		
-		return clube.adicionarLocal(local);
+		System.out.println ("Digite o nome do local:");
+		String nomeLocal = scanner.nextLine();
+		
+		System.out.println ("Digite a categoria do local:");
+		System.out.println ("1 - Quadras");
+		System.out.println ("2 - Salas de atividades");
+		int id = Integer.parseInt(scanner.nextLine()); 
+		
+		Local local = new Local(nomeLocal, clube.getCategoria(id));
+		
+		if (clube.adicionarLocal(local) == false){
+			System.out.println("J� existe um local com este nome! Cadastro n�o realizado.");
+			return false;
+		}
+		else
+			return true;
 	}
 	
 	/**
@@ -96,10 +116,23 @@ public class GerenciadorLocal<L> {
 	 *  
 	 */		
 	public void editarLocal(String nomeLocal) {
-		// Deve vir como entrada do usuario na interface
-		String nomeNovo = "Quadra 99";
+		Local local = clube.getLocal(nomeLocal);
+		if (local == null) {
+			log.registrarComSaida("Local " + nomeLocal + " nao encontrado");
+			return;
+		}
+		visualizarLocal(nomeLocal);
 		
-		clube.editarLocal(nomeLocal, nomeNovo);
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o novo nome do local:");
+		String novoNomeLocal = scanner.nextLine();
+		
+		
+		clube.editarLocal(nomeLocal, novoNomeLocal);
+		visualizarLocal(novoNomeLocal);
+		log.registrarComSaida("Usuario editado com sucesso!");
+		
 	}
 	
 	/**
@@ -109,10 +142,23 @@ public class GerenciadorLocal<L> {
 	 * 
 	 */
 	public void editarLocal(int id) {
-		// Deve vir como entrada do usuario na interface
-		String nomeNovo = "Quadra 99";
 		
-		clube.editarLocal(id, nomeNovo);
+		Local local = clube.getLocal(id);
+		if (local == null) {
+			log.registrarComSaida("Local " + id + " nao encontrado");
+			return;
+		}
+		visualizarLocal(id);
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o novo nome do local:");
+		String novoNomeLocal = scanner.nextLine();
+		
+		
+		clube.editarLocal(id, novoNomeLocal);
+		visualizarLocal(id);
+		log.registrarComSaida("Usuario editado com sucesso!");
 	}
 			
 	/**
@@ -122,7 +168,30 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(String nomeLocal) {
-		return clube.removerLocal(nomeLocal);
+		Local local = clube.getLocal(nomeLocal);
+		if (local == null) {
+			log.registrarComSaida("Local " + nomeLocal + " nao encontrado");
+			return false;
+		}
+		
+		visualizarLocal(nomeLocal);
+		
+		System.out.println("Deseja remover o local:\n");
+		System.out.println("1 - Sim");
+		System.out.println("2 - Nao");
+		
+		Scanner scanner = new Scanner(System.in);
+		int opcao = 2;
+		try {
+			opcao = Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			opcao = 2;
+		}
+		if (opcao == 1) {
+			return clube.removerLocal(nomeLocal);
+		}
+		return false;
+		
 	}
 			
 	/**
@@ -132,7 +201,30 @@ public class GerenciadorLocal<L> {
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removerLocal(int id) {
-		return clube.removerLocal(id);
+		Local local = clube.getLocal(id);
+		if (local == null) {
+			log.registrarComSaida("Local " + id + " nao encontrado");
+			return false;
+		}
+		
+		visualizarLocal(id);
+		
+		System.out.println("Deseja remover o local:\n");
+		System.out.println("1 - Sim");
+		System.out.println("2 - Nao");
+		
+		Scanner scanner = new Scanner(System.in);
+		int opcao = 2;
+		try {
+			opcao = Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			opcao = 2;
+		}
+		if (opcao == 1) {
+			return clube.removerLocal(id);
+		}
+		return false;
+		
 	}
 
 }

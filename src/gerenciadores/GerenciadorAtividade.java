@@ -1,6 +1,7 @@
 package gerenciadores;
 
 import java.util.List;
+import java.util.Scanner;
 
 import atividade.Atividade;
 import clube.Clube;
@@ -24,10 +25,18 @@ public class GerenciadorAtividade <A>{
 	 * @return boolean - true se a atividade foi cadastrada ; false - caso contrário
 	 */
 	public boolean cadastrarAtividade() {
-		// Valores virao da interface do usuario
-		String nome = "Skateboard";
+		Scanner scanner = new Scanner(System.in);
 		
-		return clube.adicionarAtividade(nome, clube.getModalidade(1));
+		System.out.println("Digite a atividade:");
+		String nome = scanner.nextLine();
+		
+		System.out.println("Digite a modalidade da atividade:");
+		System.out.println("1 - Digital");
+		System.out.println("2 - Analogico");
+		System.out.println("3 - Fisico");
+		int id = Integer.parseInt(scanner.nextLine());
+		
+		return clube.adicionarAtividade(nome, clube.getModalidade(id));
 	}
 	
 	/**
@@ -94,8 +103,9 @@ public class GerenciadorAtividade <A>{
 	 *  
 	 */
 	public void editarAtividade(String nomeAtividade) {
-		// Dados virao da interface do usuario
-		String novoNome = "Futsal";
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Digite o nome da nova atividade");
+		String novoNome = scanner.nextLine();
 		
 		clube.editarAtividade(nomeAtividade, novoNome);
 	}
@@ -107,8 +117,9 @@ public class GerenciadorAtividade <A>{
 	 * 
 	 */		
 	public void editarAtividade(int id) {
-		// Dados virao da interface do usuario
-		String novoNome = "Volei";
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Digite o nome da nova atividade");
+		String novoNome = scanner.nextLine();
 		
 		clube.editarAtividade(id, novoNome);
 	}

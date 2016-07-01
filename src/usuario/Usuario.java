@@ -17,29 +17,33 @@ public class Usuario implements Serializable {
 	
 	private int idade;
 	
+	private String sexo;
+	
 	private String endereco;
 	
 	private long telefone;
 	
 	private Map<Integer, Turma> turmas;
 		
-	public Usuario(String nome, int idade, String endereco, long telefone) {
+	public Usuario(String nome, int idade, String sexo, String endereco, long telefone) {
 		this.nome = nome;
 		this.idade = idade;
+		this.sexo = sexo;
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.turmas = new HashMap<>();
 	}
 	
 	public String formatoSistemaAntigo() {
-		return String.format("%s,%d,%s,%d", nome, idade, endereco, telefone);
+		return String.format("%s,%d,%s,%s,%d", nome, idade, sexo, endereco, telefone);
 	}
 	
 	// O metodo editar nao altera o atributo turmas pois vai ficar a cargo do
 	// clube e seus gerenciadores
-	public void editar(String nome, int idade, String endereco, long telefone) {
+	public void editar(String nome, int idade, String sexo, String endereco, long telefone) {
 		this.nome = nome;
 		this.idade = idade;
+		this.sexo = sexo;
 		this.endereco = endereco;
 		this.telefone = telefone;
 	}
@@ -67,6 +71,10 @@ public class Usuario implements Serializable {
 
 	public int getIdade() {
 		return idade;
+	}
+	
+	public String getSexo() {
+		return sexo;
 	}
 
 	public String getEndereco() {

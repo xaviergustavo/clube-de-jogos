@@ -43,9 +43,10 @@ public class GerenciadorUsuario <U>{
 				String[] atributos = usuarioArquivo.split(",");
 				String nome = atributos[0];
 				int idade = Integer.parseInt(atributos[1]);
-				String endereco = atributos[2];
-				long telefone = Long.parseLong(atributos[3]);
-				boolean cadastrou = clube.adicionarUsuario(nome, idade, endereco, telefone);
+				String sexo = atributos[2];
+				String endereco = atributos[3];
+				long telefone = Long.parseLong(atributos[4]);
+				boolean cadastrou = clube.adicionarUsuario(nome, idade, sexo, endereco, telefone);
 				if (!cadastrou) {
 					System.out.format("O usuario %s ja esta cadastrado no sistema\n", nome);
 					ok = false;
@@ -89,13 +90,16 @@ public class GerenciadorUsuario <U>{
 		System.out.println("Digite a idade:");
 		int idade = Integer.parseInt(scanner.nextLine());
 		
+		System.out.println("Digite o sexo (M ou F):");
+		String sexo = scanner.nextLine();
+		
 		System.out.println("Digite o endereco:");
 		String endereco = scanner.nextLine();
 		
 		System.out.println("Digite o telefone:");
 		long telefone = Long.parseLong(scanner.nextLine());
 
-		boolean cadastrou = clube.adicionarUsuario(nome, idade, endereco, telefone);
+		boolean cadastrou = clube.adicionarUsuario(nome, idade, sexo, endereco, telefone);
 		if (cadastrou) {
 			visualizarUsuario(nome);
 		} else {
@@ -116,7 +120,7 @@ public class GerenciadorUsuario <U>{
 		boolean ok = true;
 		for (U u : usuarios) {
 			Usuario usuario = (Usuario)u;
-			boolean cadastrou = clube.adicionarUsuario(usuario.getNome(), usuario.getIdade(), usuario.getEndereco(), usuario.getTelefone());
+			boolean cadastrou = clube.adicionarUsuario(usuario.getNome(), usuario.getIdade(), usuario.getSexo(), usuario.getEndereco(), usuario.getTelefone());
 			if (cadastrou) {
 				visualizarUsuario(usuario.getNome());
 			} else {
@@ -143,6 +147,7 @@ public class GerenciadorUsuario <U>{
 		System.out.format("Matricula: %d%n", u.getId());
 		System.out.format("Nome: %s\n", u.getNome());
 		System.out.format("Idade: %d\n", u.getIdade());
+		System.out.format("Sexo: %s\n", u.getSexo());
 		System.out.format("Endereco: %s\n", u.getEndereco());
 		System.out.format("Telefone: %d\n", u.getTelefone());
 		
@@ -197,6 +202,9 @@ public class GerenciadorUsuario <U>{
 		
 		System.out.println("Digite a idade:");
 		int novaIdade = Integer.parseInt(scanner.nextLine());
+		
+		System.out.println("Digite o sexo (M ou F):");
+		String novoSexo = scanner.nextLine();
 
 		System.out.println("Digite o endereco:");
 		String novoEndereco = scanner.nextLine();
@@ -204,7 +212,7 @@ public class GerenciadorUsuario <U>{
 		System.out.println("Digite o telefone:");
 		long novoTelefone = Long.parseLong(scanner.nextLine());
 		
-		clube.editarUsuario(nomeUsuario, novoNome, novaIdade, novoEndereco, novoTelefone);
+		clube.editarUsuario(nomeUsuario, novoNome, novaIdade, novoSexo, novoEndereco, novoTelefone);
 		visualizarUsuario(novoNome);
 		log.registrarComSaida("Usuario editado com sucesso!");
 	}
@@ -231,6 +239,9 @@ public class GerenciadorUsuario <U>{
 		
 		System.out.println("Digite a idade:");
 		int novaIdade = Integer.parseInt(scanner.nextLine());
+		
+		System.out.println("Digite o sexo (M ou F):");
+		String novoSexo = scanner.nextLine();
 
 		System.out.println("Digite o endereco:");
 		String novoEndereco = scanner.nextLine();
@@ -238,7 +249,7 @@ public class GerenciadorUsuario <U>{
 		System.out.println("Digite o telefone:");
 		long novoTelefone = Long.parseLong(scanner.nextLine());
 		
-		clube.editarUsuario(nMatricula, novoNome, novaIdade, novoEndereco, novoTelefone);
+		clube.editarUsuario(nMatricula, novoNome, novaIdade, novoSexo, novoEndereco, novoTelefone);
 	
 		visualizarUsuario(nMatricula);
 		log.registrarComSaida("Usuario editado com sucesso!");

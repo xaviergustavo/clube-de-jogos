@@ -21,14 +21,14 @@ public class ClubeTest {
 	public static void inicializarClube() {
 		clube = Clube.getInstance();
 		
-		clube.adicionarUsuario("Lucas", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Gustavo", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Felipe", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Jose", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Jorge", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Sergio", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Astrogildo", 21, "Rua Teste", 912367532);
-		clube.adicionarUsuario("Marta", 21, "Rua Teste", 912367532);
+		clube.adicionarUsuario("Lucas", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Gustavo", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Felipe", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Jose", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Jorge", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Sergio", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Astrogildo", 21, "M", "Rua Teste", 912367532);
+		clube.adicionarUsuario("Marta", 21, "F", "Rua Teste", 912367532);
 		
 		clube.adicionarAtividade("Futebol", clube.getModalidade(3));
 		clube.adicionarAtividade("Basquete", clube.getModalidade(3));

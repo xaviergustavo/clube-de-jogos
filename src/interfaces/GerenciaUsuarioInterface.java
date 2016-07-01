@@ -94,13 +94,16 @@ public class GerenciaUsuarioInterface {
 				System.out.println("Digite a idade:");
 				int idade = Integer.parseInt(scanner.nextLine());
 				
+				System.out.println("Digite o sexo (M ou F):");
+				String sexo = scanner.nextLine();
+				
 				System.out.println("Digite o endereco:");
 				String endereco = scanner.nextLine();
 				
 				System.out.println("Digite o telefone:");
 				long telefone = Long.parseLong(scanner.nextLine());
 				
-				Usuario novo = new Usuario(nome, idade, endereco, telefone);
+				Usuario novo = new Usuario(nome, idade, sexo, endereco, telefone);
 				usuarios.add(novo);
 				menuCadastrarListaUsuario();
 				break;
