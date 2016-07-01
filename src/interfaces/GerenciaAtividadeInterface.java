@@ -133,7 +133,7 @@ public class GerenciaAtividadeInterface {
 		
 	}
 	
-	public void visualizarAtividadeNome() {
+	private void visualizarAtividadeNome() {
 		Scanner scanner = new Scanner(System.in);
 		String nomeAtividade = "";
 		while (nomeAtividade.equals("")) {
@@ -147,7 +147,7 @@ public class GerenciaAtividadeInterface {
 		gerenciador.visualizarAtividade(nomeAtividade);
 	}
 	
-	public void visualizarAtividadeId() {
+	private void visualizarAtividadeId() {
 		Scanner scanner = new Scanner(System.in);
 		int id = 0;
 		while (id == 0) {
@@ -201,7 +201,7 @@ public class GerenciaAtividadeInterface {
 			if (sair) {
 				break;
 			}
-			menuVisualizarAtividade();
+			menuEditarAtividade();
 		}
 		
 	}

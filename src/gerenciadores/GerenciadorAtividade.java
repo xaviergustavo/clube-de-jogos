@@ -63,7 +63,7 @@ public class GerenciadorAtividade <A>{
 	public void visualizarAtividade(String nomeAtividade) {
 		Atividade atividade = clube.getAtividade(nomeAtividade);
 		if (atividade == null) {
-			System.out.format("Atividade %s nao encontrada", nomeAtividade);
+			System.out.format("Atividade %s nao encontrada%n%n", nomeAtividade);
 		} else {
 			System.out.println(atividade.info());
 		}
@@ -78,7 +78,7 @@ public class GerenciadorAtividade <A>{
 	public void visualizarAtividade(int id) {
 		Atividade atividade = clube.getAtividade(id);
 		if (atividade == null) {
-			System.out.format("Atividade %s nao encontrada", id);
+			System.out.format("Atividade %s nao encontrada%n%n", id);
 		} else {
 			System.out.println(atividade.info());
 		}
