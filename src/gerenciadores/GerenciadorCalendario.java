@@ -1,8 +1,9 @@
 package gerenciadores;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Scanner;
 
 import atividade.Atividade;
 import clube.Clube;
@@ -28,23 +29,19 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * false - se a turma năo puder ser alocada 
 	 */
 	public boolean adicionaTurma(T turma) {
-		int idAtividade = 1;
-		int idLocal = 1;
-		DayOfWeek dia = DayOfWeek.of(6);
-		int horarioInicial = 18;
-		int horarioFinal = 20;
+		Turma novaTurma = (Turma) turma;
 		
-		Atividade atividade = clube.getAtividade(idAtividade);
-		if (atividade == null) {
-			return false;
-		}
+		Scanner scanner = new Scanner(System.in);
 		
-		Local local = clube.getLocal(idLocal);
-		if (local == null) {
-			return false;
-		}
+		System.out.println("Digite o dia da semana (numero entre 0-6):");
+		DayOfWeek dia = DayOfWeek.of(Integer.parseInt(scanner.nextLine()));
 		
-		Turma novaTurma = new Turma(atividade, local);
+		System.out.println("Digite o horario de inicio:");
+		int horarioInicial = Integer.parseInt(scanner.nextLine());
+		
+		System.out.println("Digite o horario de fim:");
+		int horarioFinal = Integer.parseInt(scanner.nextLine());
+		
 		return clube.agendarTurma(novaTurma, dia, horarioInicial, horarioFinal - horarioInicial);
 	}
 	

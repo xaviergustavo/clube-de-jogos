@@ -25,7 +25,40 @@ private GerenciadorCalendario<Atividade, Turma, Local, Usuario> gerenciador;
 	}
 	
 	public void adicionaTurma() {
-		System.out.println("Em construcao");
+		log.registrar("Cadastrando nova turma...");
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		Atividade atividade = null;
+		while(atividade == null) {
+			System.out.println("Digite o id da atividade:");
+			atividade = clube.getAtividade(Integer.parseInt(scanner.nextLine()));
+			if (atividade == null) {
+				System.out.println("Atividade nao encontrada");
+			} else {
+				break;
+			}
+		}
+		
+		Local local = null;
+		while(local == null) {
+			System.out.println("Digite o id do local:");
+			local = clube.getLocal(Integer.parseInt(scanner.nextLine()));
+			if (local == null) {
+				System.out.println("Local nao encontrado");
+			} else {
+				break;
+			}
+		}
+		
+		Turma novaTurma = new Turma(atividade, local);
+		
+		boolean cadastrou = gerenciador.adicionaTurma(novaTurma);
+		if (cadastrou) {
+			log.registrarComSaida("Turma cadastrada com sucesso");
+		} else {
+			log.registrarComSaida("Nao foi possivel cadastrar a turma!");
+		}
 	}
 	
 	public void adicionaTurmasLocal() {
@@ -36,10 +69,6 @@ private GerenciadorCalendario<Atividade, Turma, Local, Usuario> gerenciador;
 		log.registrar("Exibindo as turmas de um local...");
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Digite o id do local:");
-		System.out.println("1 - Quadra 1");
-		System.out.println("2 - Quadra 2");
-		System.out.println("3 - Sala 1");
-		System.out.println("4 - Sala 2");
 		int id = Integer.parseInt(scanner.nextLine());
 		Local l = clube.getLocal(id);
 		gerenciador.exibeTurmasLocal(l);
