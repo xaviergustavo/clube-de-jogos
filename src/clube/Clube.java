@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 import atividade.Atividade;
 import local.CategoriaLocal;
 import local.Local;
-import logger.ClubeLogger;
 import modalidade.Modalidade;
 import turma.Turma;
 import usuario.Usuario;
@@ -74,21 +73,21 @@ public class Clube implements Serializable {
 		usuarios = new HashMap<>();
 		atividades = new HashMap<>();
 		turmas = new HashMap<>();
-		categorias = new HashMap<>();
 		locais = new HashMap<>();
-		modalidades = new HashMap<>();
+		this.inicializarCategorias();
+		this.inicializarModalidades();
+		
 		// Verifica se o arquivo com o estado do sistema existe.
 		// Caso nao exista, carrega os valores padrao do sistema.
 		if (new File("clube-de-jogos.data").isFile()) {
 			recuperarEstadoSistema();
 		} else {
-			this.inicializarCategorias();
 			this.inicializarLocais();
-			this.inicializarModalidades();
 		}
 	}
 	
 	private void inicializarCategorias() {
+		categorias = new HashMap<>();
 		categorias.put(1, new CategoriaLocal(1, "Quadra"));
 		categorias.put(2, new CategoriaLocal(2, "Sala"));
 	}
@@ -101,6 +100,7 @@ public class Clube implements Serializable {
 	}
 	
 	private void inicializarModalidades() {
+		modalidades = new HashMap<>();
 		modalidades.put(1, new Modalidade(1, "Digital", this.categorias.get(2)));
 		modalidades.put(2, new Modalidade(2, "Analogico", this.categorias.get(2)));
 		modalidades.put(3, new Modalidade(3, "Fisico", this.categorias.get(1)));
@@ -371,16 +371,6 @@ public class Clube implements Serializable {
 	
 	public CategoriaLocal getCategoria(int id) {
 		return categorias.get(id);
-	}
-	
-	public CategoriaLocal getCategoria(String nomeCategoria) {
-		for (Entry<Integer, CategoriaLocal> entry : categorias.entrySet()) {
-			CategoriaLocal categoria = entry.getValue();
-			if (categoria.getNome().equals(nomeCategoria)) {
-				return categoria;
-			}
-		}
-		return null;
 	}
 	
 	// Modalidade

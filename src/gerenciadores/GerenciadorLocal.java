@@ -14,6 +14,7 @@ public class GerenciadorLocal<L> {
 	
 	public GerenciadorLocal() {
 		clube = Clube.getInstance();
+		log = ClubeLogger.getInstance();
 	}
 	
 	//metodos de Locais
@@ -29,7 +30,7 @@ public class GerenciadorLocal<L> {
 		
 		System.out.println ("Cadastro de novo local.");
 		System.out.println ();
-		System.out.format ("Os campos que devem preenchidos s�o:\n- Nome do Local\n- Categoria\n");
+		System.out.format ("Os campos que devem preenchidos sao:\n- Nome do Local\n- Categoria\n");
 		
 		System.out.println ("Digite o nome do local:");
 		String nomeLocal = scanner.nextLine();
@@ -42,7 +43,7 @@ public class GerenciadorLocal<L> {
 		Local local = new Local(nomeLocal, clube.getCategoria(id));
 		
 		if (clube.adicionarLocal(local) == false){
-			System.out.println("J� existe um local com este nome! Cadastro n�o realizado.");
+			System.out.println("Ja existe um local com este nome! Cadastro nao realizado.");
 			return false;
 		}
 		else
@@ -128,11 +129,9 @@ public class GerenciadorLocal<L> {
 		System.out.println("Digite o novo nome do local:");
 		String novoNomeLocal = scanner.nextLine();
 		
-		
 		clube.editarLocal(nomeLocal, novoNomeLocal);
 		visualizarLocal(novoNomeLocal);
-		log.registrarComSaida("Usuario editado com sucesso!");
-		
+		log.registrarComSaida("Usuario editado com sucesso!");		
 	}
 	
 	/**

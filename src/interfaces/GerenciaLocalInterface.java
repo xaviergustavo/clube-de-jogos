@@ -15,8 +15,7 @@ public class GerenciaLocalInterface {
 	private GerenciadorLocal<Local> gerenciador;
 	
 	private ClubeLogger log;
-	private Clube clube;
-	
+
 	public GerenciaLocalInterface() {
 		this.gerenciador = new GerenciadorLocal<>();
 		this.log = ClubeLogger.getInstance();
@@ -42,15 +41,16 @@ public class GerenciaLocalInterface {
 		log.registrar("Cadastrando lista de novos locais...");
 		
 		List<Local> locais = new ArrayList<>();
-		int opcao = 2;
-		
-		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Menu de cadastrar Lista de Novos Locais:\n");
 		
 		menuCadastrarNovosLocais();
 		
 		boolean finalizou = false;
+		
+		int opcao = 2;
+		
+		Scanner scanner = new Scanner(System.in);
 		
 		while(scanner.hasNext()) {
 			
@@ -68,10 +68,11 @@ public class GerenciaLocalInterface {
 				System.out.println ("Digite a categoria do local:");
 				System.out.println ("1 - Quadras");
 				System.out.println ("2 - Salas de atividades");
-				int id = Integer.parseInt(scanner.nextLine()); 
+				int id = Integer.parseInt(scanner.nextLine());
 				
-				Local local = new Local(nomeLocal, clube.getCategoria(id));
-				locais.add(local);
+				Local novo = new Local(nomeLocal, Clube.getInstance().getCategoria(id));
+				locais.add(novo);
+				
 				menuCadastrarNovosLocais();
 				break;
 			case 2:
@@ -131,7 +132,7 @@ public class GerenciaLocalInterface {
 			
 	}
 	
-	public void visualizarLocalNome() {
+	private void visualizarLocalNome() {
 		Scanner scanner = new Scanner(System.in);
 		String nomeLocal = "";
 		while (nomeLocal.equals("")) {
@@ -145,7 +146,7 @@ public class GerenciaLocalInterface {
 		gerenciador.visualizarLocal(nomeLocal);
 	}
 	
-	public void visualizarLocalId() {
+	private void visualizarLocalId() {
 		Scanner scanner = new Scanner(System.in);
 		int id = 0;
 		while (id == 0) {
@@ -204,7 +205,7 @@ public class GerenciaLocalInterface {
 		
 	}
 	
-	public void editarLocalNome() {
+	private void editarLocalNome() {
 		Scanner scanner = new Scanner(System.in);
 		String nomeLocal = "";
 		while (nomeLocal.equals("")) {
@@ -218,7 +219,7 @@ public class GerenciaLocalInterface {
 		gerenciador.editarLocal(nomeLocal);
 	}
 	
-	public void editarLocalId() {
+	private void editarLocalId() {
 		Scanner scanner = new Scanner(System.in);
 		int id = 0;
 		while (id == 0) {

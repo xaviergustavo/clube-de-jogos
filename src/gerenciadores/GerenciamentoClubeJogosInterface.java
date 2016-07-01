@@ -6,6 +6,7 @@ import interfaces.GerenciaUsuarioInterface;
 import interfaces.GerenciaAtividadeInterface;
 import interfaces.GerenciaCalendarioInterface;
 import interfaces.GerenciaEstadoSistemaInterface;
+import interfaces.GerenciaLocalInterface;
 import logger.ClubeLogger;
 
 public class GerenciamentoClubeJogosInterface {
@@ -150,7 +151,61 @@ public class GerenciamentoClubeJogosInterface {
 	 * As opçőes săo escolhidas por meio de entrada do usuário.	 * 
 	 */
 	public void gerenciaLocal() {
-		System.out.println("Em Construcao!");
+		GerenciaLocalInterface gerenciador = new GerenciaLocalInterface();
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		exibeMenuGerenciarLocal();
+		
+		boolean sair = false;
+		
+		while(scanner.hasNext()) {
+			int opcao = scanner.nextInt();
+			switch (opcao) {
+			case 1:
+				gerenciador.cadastrarNovoLocal();
+				break;
+			case 2:
+				gerenciador.cadastrarNovosLocais();
+				break;
+			case 3:
+				gerenciador.visualizarLocal();
+				break;
+			case 4:
+				gerenciador.visualizarTodosLocais();
+				break;
+			case 5:
+				gerenciador.editarLocal();
+				break;
+			case 6:
+				gerenciador.removerLocal();
+				break;
+			case 0:
+				sair = true;
+				break;
+			default:
+				System.out.println("Opcao invalida\n");
+				break;
+			}
+			if (sair) {
+				break;
+			}
+			exibeMenuGerenciarLocal();
+		}
+	}
+	
+	public void exibeMenuGerenciarLocal() {
+		System.out.println("Menu de Gerenciador de Local\n");
+		
+		System.out.println("1 - Cadastrar novo local");
+		System.out.println("2 - Cadastrar lista de locais");
+		System.out.println("3 - Visualizar informacoes de um local");
+		System.out.println("4 - Visualizar todos os locais");
+		System.out.println("5 - Editar informacoes de um local");
+		System.out.println("6 - Remover um local do sistema");
+		System.out.println("0 - Voltar ao menu principal\n");
+		
+		System.out.println("Selecione uma opcao:");
 	}
 	
 	/**
