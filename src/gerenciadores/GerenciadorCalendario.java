@@ -122,9 +122,6 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 *  
 	 */
 	public List<U> reagendaTurma(T turma, Date dia, Date inicio, Date fim) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
 		return null;
 	}
 	
@@ -152,12 +149,6 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * @return true - se alterou local, false - caso contrário
 	 */
 	public boolean alteraLocal(T turma, L local){
-//		Turma t = (Turma) turma;
-//		Local l = (Local) local;
-//		
-//		if (!t.podeAlterarLocal(l)) {
-//			return false;
-//		}
 		return false;
 	};
 	
@@ -171,9 +162,6 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * @return true - se usuário foi incluido; false - caso o contrário
 	 */
 	public boolean adicionaUsuarioTurma(U usuario, T turma) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
 		return false;
 	}
 	
@@ -187,9 +175,6 @@ public class GerenciadorCalendario <A,T,L,U>{
 	 * @return true - se confirma remoçăo; false - se cancela remoçăo
 	 */
 	public boolean removeUsuarioAtividade(U usuario, T turma) {
-		/**
-		 * TODO implementar este método seguindo a descriçăo acima
-		 */	
 		return false;
 	}
 	
